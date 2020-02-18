@@ -1,0 +1,23 @@
+#cloud-config
+
+write_files:
+-   encoding: b64
+    content: ${ replicated_conf_b64content }
+    owner: root:root
+    path: /etc/replicated.conf
+    permissions: '0644'
+
+-   encoding: b64
+    content: ${ ptfe_settings_b64content }
+    owner: root:root
+    path: /opt/tfe-installer/settings.json
+    permissions: '0644'
+
+-   encoding: b64
+    content: ${ install_wrapper_b64content }
+    owner: root:root
+    path: /opt/tfe-installer/install_wrap.sh
+    permissions: '0755'
+
+runcmd:
+- [ "/usr/bin/env", "bash", "-c", "pushd /opt/tfe-installer/; ./install_wrap.sh; popd" ]
