@@ -1,0 +1,56 @@
+{
+    "variables": {
+        "build_name": "ptfev4-aws",
+        "base_ami_id": "",
+        "ptfev4_version": "",
+        "docker_version_string": "5:18.09.2~3-0~ubuntu-bionic",
+        "tag_owner": "",
+        "tag_project": "",
+        "aws_region": "{{env `AWS_REGION`}}",
+        "aws_instance_type": "m5.large",
+        "aws_instance_root_volume_size": "50"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "ssh_username": "ubuntu",
+            "source_ami": "{{user `base_ami_id`}}",
+            "region": "{{user `aws_region`}}",
+            "instance_type": "{{user `aws_instance_type`}}",
+            "ami_name": "ptfev4-{{user `ptfev4_version`}}-{{isotime \"20060102\"}}",
+            "tags": {
+              "owner": "{{user `tag_owner`}}",
+              "base_ami": "{{ .SourceAMIName }}",
+              "project": "{{user `tag_project`}}"
+            },
+            "launch_block_device_mappings": [
+                {
+                  "device_name": "/dev/sda1",
+                  "volume_size": "{{user `aws_instance_root_volume_size`}}",
+                  "volume_type": "gp2",
+                  "delete_on_termination": true
+                }
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "{{template_dir}}/assets",
+            "destination": "/tmp"
+        },
+        {
+            "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash {{.Path}}",
+            "scripts": [
+                "{{template_dir}}/scripts/setup_docker.sh",
+                "{{template_dir}}/scripts/setup_files.sh",
+                "{{template_dir}}/scripts/setup_cleanup.sh"
+            ],
+            "environment_vars": [
+                "DEBIAN_FRONTEND=noninteractive",
+                "DOCKER_VERSION_STRING={{user `docker_version_string`}}"
+            ],
+            "type": "shell"
+        }
+    ]
+}
