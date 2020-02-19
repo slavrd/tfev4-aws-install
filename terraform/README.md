@@ -15,6 +15,8 @@ The resource configuration is split in the following modules placed in sub direc
 
 * `ec2_instance` - provisions an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./ec-instance/README.md).
 
+* `dns` - provisions a CNAME DNS record in AWS route53.
+
 ## Usage
 
 This directory contains Terraform code that ties the sub modules together. Each sub module can also be used individually by going to its sub directory.
