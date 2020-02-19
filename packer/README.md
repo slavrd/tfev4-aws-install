@@ -29,6 +29,11 @@ export AWS_ACCESS_KEY_ID=<YOUR AWS ACCESS KEY>
 export AWS_SECRET_ACCESS_KEY=<YOUR AWS SECRET KEY>
 export AWS_REGION=<THE AWS REGION TO CREATE THE AMI>
 ```
+- Increase the time packer will wait for AWS resources to report ready status. The AMI in this template has a root ebs volume of 50GB and so it takes a long time to build. This sometimes causes a packer to timeout waiting for the AMI to become ready.
+
+```bash
+export AWS_TIMEOUT_SECONDS=3600
+```
 
 - set the packer variables defined in `template.json`.vHelp on setting packer template variables can be found [here](https://packer.io/docs/templates/user-variables.html).
   - `base_ami_id` - must be an ubuntu image.
