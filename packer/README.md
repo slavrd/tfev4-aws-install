@@ -71,3 +71,51 @@ public_ip=$(curl -sS 'http://169.254.169.254/latest/meta-data/public-ipv4')
 ```
 
 The installation commands can be placed in the instance user data so that the install is automated upon instance launch.
+
+## Testing
+
+The project contains a [terratest](https://github.com/gruntwork-io/terratest) test placed in the `./test` directory. The test will
+
+- Use `Packer` to build an AMI.
+- Use `Terraform` to provision an EC2 instance from this AMI.
+- Run tests over ssh on the EC2 instance.
+
+### Prerequisites 
+
+- Have [Golang](https://golang.org/dl/) installed.
+- Have [Packer](https://packer.io/downloads.html) installed.
+- Have [Terraform](https://www.terraform.io/downloads.html) version `>= 0.12.20` installed.
+- Have the go dependency packages installed. To do that run 
+
+```
+go get -v -d -t ./test/...
+```
+
+### Running the test
+
+- Set any terraform input variables as needed. The terraform configuration used by the test is placed in `./test/terraform_fixture` directory. Any variables that do not have a default value are set by terratest and MUST NOT be set manually.
+
+- Set AWS credentials by using AWS credentials file or environment variables. For example:
+
+```bash
+export AWS_ACCESS_KEY_ID=<YOUR AWS ACCESS KEY>
+export AWS_SECRET_ACCESS_KEY=<YOUR AWS SECRET KEY>
+```
+
+- Set AWS_REGION environment variable
+
+```bash
+export AWS_REGION=<THE AWS REGION TO CREATE THE AMI>
+```
+
+- Increase the time packer will wait for AWS resources to report ready status. 
+
+```bash
+export AWS_TIMEOUT_SECONDS=3600
+```
+
+- Run the test.
+
+```bash
+go test -v -timeout 60m ./test/
+```
