@@ -15,7 +15,7 @@ The repository contains:
 ## TODO
 
 - [x] packer project to create an AWS AMI with docker and static PTFEv4 setup files.
-  - [ ] add test for the AMI
+  - [x] add test for the AMI
 - [x] terraform sub-module to create the PTFEv4 instance.
 - [x] terraform module to provision a DNS record for PTFE.
 - [ ] terraform root module to tie the sub-modules together.
