@@ -29,6 +29,11 @@ export AWS_ACCESS_KEY_ID=<YOUR AWS ACCESS KEY>
 export AWS_SECRET_ACCESS_KEY=<YOUR AWS SECRET KEY>
 export AWS_REGION=<THE AWS REGION TO CREATE THE AMI>
 ```
+- Increase the time packer will wait for AWS resources to report ready status. The AMI in this template has a root ebs volume of 50GB and so it takes a long time to build. This sometimes causes a packer to timeout waiting for the AMI to become ready.
+
+```bash
+export AWS_TIMEOUT_SECONDS=3600
+```
 
 - set the packer variables defined in `template.json`.vHelp on setting packer template variables can be found [here](https://packer.io/docs/templates/user-variables.html).
   - `base_ami_id` - must be an ubuntu image.
@@ -66,3 +71,59 @@ public_ip=$(curl -sS 'http://169.254.169.254/latest/meta-data/public-ipv4')
 ```
 
 The installation commands can be placed in the instance user data so that the install is automated upon instance launch.
+
+## Testing
+
+The project contains a [terratest](https://github.com/gruntwork-io/terratest) test placed in the `./test` directory. The test will
+
+- Use `Packer` to build an AMI. The test can also be passed an existing AMI id via the `-ami` command line argument. In this case no new ami will be built.
+- Use `Terraform` to provision an EC2 instance from this AMI.
+- Run tests over ssh on the EC2 instance.
+
+### Prerequisites 
+
+- Have [Golang](https://golang.org/dl/) installed.
+- Have [Packer](https://packer.io/downloads.html) installed.
+- Have [Terraform](https://www.terraform.io/downloads.html) version `>= 0.12.20` installed.
+- Have the go dependency packages installed. To do that run 
+
+```
+go get -v -d -t ./test/...
+```
+
+### Running the test
+
+- Set any terraform input variables as needed. The terraform configuration used by the test is placed in `./test/terraform_fixture` directory. Any variables that do not have a default value are set by terratest and MUST NOT be set manually.
+
+- Set AWS credentials by using AWS credentials file or environment variables. For example:
+
+```bash
+export AWS_ACCESS_KEY_ID=<YOUR AWS ACCESS KEY>
+export AWS_SECRET_ACCESS_KEY=<YOUR AWS SECRET KEY>
+```
+
+- Set AWS_REGION environment variable
+
+```bash
+export AWS_REGION=<THE AWS REGION TO CREATE THE AMI>
+```
+
+- Increase the time packer will wait for AWS resources to report ready status. 
+
+```bash
+export AWS_TIMEOUT_SECONDS=3600
+```
+
+At this point the test can be run so that it will build a new AMI with packer or the tests can be provided an existing ami to run against.
+
+- Run test against a new AMI, which will be built with packer
+
+```bash
+go test -v -timeout 60m ./test/
+```
+
+- Run tests against existing ami
+  
+```bash
+go test -v -timeout 60m ./test/ -ami 'aws_ami_id'
+```
