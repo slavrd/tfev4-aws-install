@@ -76,7 +76,7 @@ The installation commands can be placed in the instance user data so that the in
 
 The project contains a [terratest](https://github.com/gruntwork-io/terratest) test placed in the `./test` directory. The test will
 
-- Use `Packer` to build an AMI.
+- Use `Packer` to build an AMI. The test can also be passed an existing AMI id via the `-ami` command line argument. In this case no new ami will be built.
 - Use `Terraform` to provision an EC2 instance from this AMI.
 - Run tests over ssh on the EC2 instance.
 
@@ -114,8 +114,16 @@ export AWS_REGION=<THE AWS REGION TO CREATE THE AMI>
 export AWS_TIMEOUT_SECONDS=3600
 ```
 
-- Run the test.
+At this point the test can be run so that it will build a new AMI with packer or the tests can be provided an existing ami to run against.
+
+- Run test against a new AMI, which will be built with packer
 
 ```bash
 go test -v -timeout 60m ./test/
+```
+
+- Run tests against existing ami
+  
+```bash
+go test -v -timeout 60m ./test/ -ami 'aws_ami_id'
 ```
