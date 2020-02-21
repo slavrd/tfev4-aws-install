@@ -7,7 +7,7 @@
         "tag_owner": "",
         "tag_project": "",
         "aws_region": "{{env `AWS_REGION`}}",
-        "aws_instance_type": "m5.large",
+        "aws_instance_type": "m5a.large",
         "aws_instance_root_volume_size": "50"
     },
     "builders": [
@@ -17,7 +17,7 @@
             "source_ami": "{{user `base_ami_id`}}",
             "region": "{{user `aws_region`}}",
             "instance_type": "{{user `aws_instance_type`}}",
-            "ami_name": "ptfev4-{{user `ptfev4_version`}}-{{isotime \"20060102\"}}",
+            "ami_name": "ptfev4-{{user `ptfev4_version`}}-{{isotime \"200601021504\"}}",
             "tags": {
               "owner": "{{user `tag_owner`}}",
               "base_ami": "{{ .SourceAMIName }}",
