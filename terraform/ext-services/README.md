@@ -14,7 +14,7 @@ The Terraform configuration provisions:
   
 - DB Subnet groups to be used by the RDS instance.
 
-- PostgreSQL RDS instance. The instance has public access and storage scaling disabled. Other parameters are customizable via the module input variables in `variables.pg.tf`. Most of them have sane defaults for a demo setup.
+- PostgreSQL RDS instance. The instance has public access and storage scaling disabled and is set to skip creating a final snapshot on deletion. Other parameters are customizable via the module input variables in `variables.pg.tf`. Most of them have sane defaults for a demo setup.
 
 ## Usage
 
