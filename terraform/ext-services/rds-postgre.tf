@@ -42,6 +42,7 @@ resource "aws_db_instance" "ptfe" {
   publicly_accessible     = false
   deletion_protection     = var.pg_deletion_protection
   backup_retention_period = var.pg_backup_retention_period
+  skip_final_snapshot     = true
 
   tags = var.common_tags
 }
