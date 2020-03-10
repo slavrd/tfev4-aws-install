@@ -19,7 +19,7 @@ The repository contains:
 - [x] terraform sub-module to create the PTFEv4 instance.
 - [x] terraform module to provision a DNS record for PTFE.
 - [ ] terraform root module to tie the sub-modules together.
-- [ ] terraform sub-module to create the basic network infrastructure.
+- [x] terraform sub-module to create the basic network infrastructure.
 - [x] terraform sub-module to external services.
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
 - [ ] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
