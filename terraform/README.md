@@ -1,6 +1,6 @@
 # Terraform - PTFEv4 EC2 Instance
 
-A project to build an EC2 Instance with installed PTFEv4, according to HashiCorp AWS reference [architecture](https://www.terraform.io/docs/enterprise/install/automating-the-installer.html).
+A project to a PTFEv4 installation and its external service in AWS, according to HashiCorp AWS reference [architecture](https://www.terraform.io/docs/enterprise/install/automating-the-installer.html).
 
 The Terraform configuration is divided into sub-modules. The root module in this directory is used to tie them together so that all resources can be provisioned with a single run e.g. for a demo.
 
@@ -15,11 +15,11 @@ The resource configuration is split in the following modules placed in sub direc
 
 * `ec2_instance` - provisions an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./ec-instance/README.md).
 
-* `dns` - provisions a CNAME DNS record in AWS route53.
+* `dns` - provisions a CNAME DNS record in AWS route53. Details on what the module does are in its [readme](./dns/README.md).
 
-* `ext-services` - external services needed for the PTFEv4 installation. An PostgreSQL RDS instance and an S3 bucket.
+* `ext-services` - external services needed for the PTFEv4 installation. An PostgreSQL RDS instance and a S3 bucket. Details on what the module does are in its [readme](./ext-services/README.md).
 
-* `network` - network resources needed for the PTFEv4 installation. A VPC, S3 access pint for it and private and public subnets.
+* `network` - network resources needed for the PTFEv4 installation. A VPC, S3 access point for it and private and public subnets. Details on what the module does are in its [readme](./network/README.md).
 
 ## Usage
 
@@ -27,9 +27,11 @@ This directory contains Terraform code that ties the sub modules together. Each 
 
 To provision the infrastructure with Terraform:
 
-- set the module input variables as described [here](https://www.terraform.io/docs/configuration/variables.html#assigning-values-to-root-module-variables). Variables for the modules are placed in `variables.*.tf` files. Each variable has a description of what it us used for.
+- set the Terraform module input variables as described [here](https://www.terraform.io/docs/configuration/variables.html#assigning-values-to-root-module-variables). Variables for the modules are placed in `variables.*.tf` files. Each variable has a description of what it us used for.
 
 - Set AWS credentials according to the Terraform AWS provider [documentation](https://www.terraform.io/docs/providers/aws/index.html).
+
+- Set the AWS region by setting AWS_REGION environment variable if not using a AWS credentials profile where it is already defined.
 
 - check and confirm the changes terraform will make to the infrastructure
   
