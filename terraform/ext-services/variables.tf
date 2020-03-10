@@ -13,3 +13,13 @@ variable "s3_bucket_region" {
   type        = string
   description = "The AWS region in which to create the s3 bucket."
 }
+
+variable "pg_subnet_ids" {
+  type        = list(string)
+  description = "List of AWS subent ids to use for PostgreSQL DB subnet group."
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "Id of the VPC in which the PostgreSQL instance is being created. Used to create the security group."
+}
