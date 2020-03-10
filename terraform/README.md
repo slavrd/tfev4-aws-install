@@ -17,6 +17,10 @@ The resource configuration is split in the following modules placed in sub direc
 
 * `dns` - provisions a CNAME DNS record in AWS route53.
 
+* `ext-services` - external services needed for the PTFEv4 installation. An PostgreSQL RDS instance and an S3 bucket.
+
+* `network` - network resources needed for the PTFEv4 installation. A VPC, S3 access pint for it and private and public subnets.
+
 ## Usage
 
 This directory contains Terraform code that ties the sub modules together. Each sub module can also be used individually by going to its sub directory.
