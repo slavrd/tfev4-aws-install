@@ -33,13 +33,21 @@ module "external_services" {
   common_tags = var.common_tags
 }
 
+module "key_pair" {
+  source = "./key-pair"
+
+  key_name        = var.key_name
+  key_pair_create = var.key_pair_create
+  public_key      = var.public_key_path == "" ? "" : file(var.public_key_path)
+}
+
 module "ptfe_instance" {
   source = "./ec2-instance"
 
   vpc_id              = module.network.vpc_id
   subnet_id           = module.network.public_subnets_ids[0]
   ami_id              = var.ami_id
-  key_name            = var.key_name
+  key_name            = var.key_pair_create ? module.key_pair.key_pair_name : var.key_name
   instance_type       = var.instance_type
   replicated_password = var.replicated_password
   ptfe_hostname       = var.ptfe_hostname
