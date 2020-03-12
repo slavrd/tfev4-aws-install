@@ -7,7 +7,7 @@ resource "aws_instance" "ptfe" {
   key_name                    = var.key_name
   associate_public_ip_address = true
   volume_tags                 = var.common_tags
-  tags                        = merge({ Name = "ptfe-instance-${formatdate("YYMMDD", timestamp())}" }, var.common_tags)
+  tags                        = merge({ Name = "ptfe-instance" }, var.common_tags)
   user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
 
     replicated_conf_b64content = base64encode(templatefile("${path.module}/templates/replicated.conf.tmpl", {
