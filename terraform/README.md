@@ -21,6 +21,8 @@ The resource configuration is split in the following modules placed in sub direc
 
 * `network` - network resources needed for the PTFEv4 installation. A VPC, S3 access point for it and private and public subnets. Details on what the module does are in its [readme](./network/README.md).
 
+* `key-pair` - can create a key pair for the PTFE EC2 instance. Can also be disabled in case an externally created key pair should be used. Details on what the module does are in its [readme](./key-pair/README.md).
+
 ## Usage
 
 This directory contains the Terraform code that ties the sub modules together. Each sub module can also be used individually by going to its sub directory.
