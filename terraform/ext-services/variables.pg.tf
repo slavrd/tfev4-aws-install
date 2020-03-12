@@ -4,6 +4,16 @@ variable "pg_identifier_prefix" {
   default     = "ptfe-pg-instance-"
 }
 
+variable "pg_subnet_ids" {
+  type        = list(string)
+  description = "List of AWS subent ids to use for PostgreSQL DB subnet group."
+}
+
+variable "pg_vpc_id" {
+  type        = string
+  description = "Id of the VPC in which the PostgreSQL instance is being created. Used to create the security group."
+}
+
 variable "pg_instance_class" {
   type        = string
   description = "The instance class of the PostgreSQL instance."

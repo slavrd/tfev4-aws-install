@@ -1,7 +1,7 @@
 resource "aws_security_group" "ptfe-pg" {
   name        = "ptfe-pg"
   description = "Allow incoming traffic for PTFE Postgre SQL instance."
-  vpc_id      = var.vpc_id
+  vpc_id      = var.pg_vpc_id
 
   tags = var.common_tags
 }
