@@ -8,6 +8,18 @@ variable "key_name" {
   description = "Name of the AWS key pair to use for the PTFE instance."
 }
 
+variable "key_pair_create" {
+  type        = bool
+  description = "Wether to create an AWS key pair at all."
+  default     = false
+}
+
+variable "public_key_path" {
+  type        = string
+  description = "Public key to use for the AWS key pair createion. If not provided a new TLS public/private key pair will be generated."
+  default     = ""
+}
+
 variable "instance_type" {
   type        = string
   description = "The AWS instance type to use."
