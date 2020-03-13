@@ -9,10 +9,10 @@ private_subnets_cidrs = {
 
 name_prefix = "my-ptfev4-"
 
-ami_id        = "my.ptfe.install.ami.id"
-key_name      = "my-key-pair"
+ami_id          = "my.ptfe.install.ami.id"
+key_name        = "my-key-pair"
 key_pair_create = true
-ptfe_hostname = "ptfev4.domain.com"
+ptfe_hostname   = "ptfev4.domain.com"
 
 s3_bucket_name   = "my-ptfev4"
 s3_bucket_region = "eu-central-1"
