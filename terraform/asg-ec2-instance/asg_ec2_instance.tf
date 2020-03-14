@@ -37,7 +37,7 @@ resource "aws_autoscaling_group" "ptfe" {
   launch_configuration      = aws_launch_configuration.ptfe.name
   vpc_zone_identifier       = var.subnets_ids
   target_group_arns         = var.target_groups_arns
-  wait_for_capacity_timeout = 0     # installing / starting PTFE can take ~30-40 mins so no point terraform waiting for capacity.
+  wait_for_capacity_timeout = 0 # installing / starting PTFE can take ~30-40 mins so no point terraform waiting for capacity.
 
   dynamic "tag" {
     for_each = merge({ Name = "${var.name_prefix}instance" }, var.common_tags)
