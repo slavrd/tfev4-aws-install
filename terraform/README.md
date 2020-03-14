@@ -13,7 +13,7 @@ The Terraform configuration is divided into sub-modules. The root module in this
 
 The resource configuration is split in the following modules placed in sub directories.
 
-* `asg-ec2-instance` - provisions an Auto Scaling group to deploy an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./asg-ec-instance/README.md).
+* `asg-ec2-instance` - provisions an Auto Scaling group to deploy an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./asg-ec2-instance/README.md).
 
 * `dns` - provisions a CNAME DNS record in AWS route53. Details on what the module does are in its [readme](./dns/README.md).
 
