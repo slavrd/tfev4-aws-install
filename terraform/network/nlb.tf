@@ -42,6 +42,15 @@ resource "aws_lb_target_group" "port_80" {
   port     = 80
   protocol = "TCP"
   vpc_id   = module.ptfe-network.vpc_id
+
+  health_check {
+    protocol            = "HTTP"
+    port                = 80
+    path                = "/"
+    interval            = 30
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
 }
 
 resource "aws_lb_target_group" "port_443" {
@@ -49,6 +58,15 @@ resource "aws_lb_target_group" "port_443" {
   port     = 443
   protocol = "TCP"
   vpc_id   = module.ptfe-network.vpc_id
+
+  health_check {
+    protocol            = "HTTPS"
+    port                = 443
+    path                = "/_health_check"
+    interval            = 30
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
 }
 
 resource "aws_lb_target_group" "port_8800" {
