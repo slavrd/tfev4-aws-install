@@ -42,13 +42,15 @@ module "key_pair" {
 }
 
 module "ptfe_instance" {
-  source = "./ec2-instance"
+  source = "./asg-ec2-instance"
 
   vpc_id              = module.network.vpc_id
-  subnet_id           = module.network.public_subnets_ids[0]
+  subnets_ids         = module.network.private_subnets_ids
   ami_id              = var.ami_id
   key_name            = var.key_pair_create ? module.key_pair.key_pair_name : var.key_name
   instance_type       = var.instance_type
+  name_prefix         = var.name_prefix
+  target_groups_arns  = [module.network.lb_tg_80_arn, module.network.lb_tg_443_arn, module.network.lb_tg_8800_arn]
   replicated_password = var.replicated_password
   ptfe_hostname       = var.ptfe_hostname
   ptfe_enc_password   = var.ptfe_enc_password
@@ -60,6 +62,7 @@ module "ptfe_instance" {
   ptfe_s3_region      = var.s3_bucket_region
 
   common_tags = var.common_tags
+
 }
 
 locals {
@@ -69,7 +72,7 @@ locals {
 module "ptfe_dns" {
   source = "./dns"
 
-  cname_value      = module.ptfe_instance.ptfe_instance_public_dns
+  cname_value      = module.network.lb_dns_name
   cname_record     = element(local.ptfe_hostname_split, 0)
   hosted_zone_name = join(".", slice(local.ptfe_hostname_split, 1, length(local.ptfe_hostname_split)))
 }
