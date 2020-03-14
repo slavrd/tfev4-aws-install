@@ -13,7 +13,7 @@ The Terraform configuration is divided into sub-modules. The root module in this
 
 The resource configuration is split in the following modules placed in sub directories.
 
-* `ec2_instance` - provisions an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./ec-instance/README.md).
+* `asg-ec2-instance` - provisions an Auto Scaling group to deploy an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./asg-ec-instance/README.md).
 
 * `dns` - provisions a CNAME DNS record in AWS route53. Details on what the module does are in its [readme](./dns/README.md).
 
@@ -22,6 +22,8 @@ The resource configuration is split in the following modules placed in sub direc
 * `network` - network resources needed for the PTFEv4 installation. A VPC, S3 access point for it and private and public subnets. Details on what the module does are in its [readme](./network/README.md).
 
 * `key-pair` - can create a key pair for the PTFE EC2 instance. Can also be disabled in case an externally created key pair should be used. Details on what the module does are in its [readme](./key-pair/README.md).
+
+* `ec2-instance` - (not used) provisions an EC2 instance with PTFEv4 installed. Assumes it is provided an AMI built with the Packer [project](../packer/README.md) in this repository. Details on what the module does are in its [readme](./ec-instance/README.md).
 
 ## Usage
 
