@@ -32,7 +32,7 @@ resource "aws_autoscaling_group" "ptfe" {
   name_prefix               = var.name_prefix
   max_size                  = 1
   min_size                  = 1
-  health_check_grace_period = 2400
+  health_check_grace_period = 1800
   health_check_type         = "ELB"
   launch_configuration      = aws_launch_configuration.ptfe.name
   vpc_zone_identifier       = var.subnets_ids
