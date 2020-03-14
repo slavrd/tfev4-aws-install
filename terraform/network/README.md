@@ -24,6 +24,8 @@ The Terraform configuration provisions:
 
 - S3 access point for the VPC so that all traffic between resources in the VPC and the S3 service is internal. Access point allows traffic to any S3 resource.
 
+- Network load balancer. The load balancer will forward TCP traffic on ports 80,443 and 8800.
+
 ## Usage
 
 For instructions on how to run Terraform configuration refer to the root module [readme](../README.md#Usage).

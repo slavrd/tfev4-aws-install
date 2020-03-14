@@ -1,9 +1,9 @@
 module "ptfe-network" {
 
-  source = "github.com/slavrd/terraform-aws-basic-network?ref=0.2.1"
+  source = "github.com/slavrd/terraform-aws-basic-network?ref=0.2.2"
 
   vpc_cidr_block       = var.vpc_cidr_block
-  name_prefix          = var.name_prefix
+  name_prefix          = trimsuffix(var.name_prefix, "-") # Avoids double "-". The module adds suffix starting with "-" to the names.
   common_tags          = var.common_tags
   public_subnet_cidrs  = var.public_subnets_cidrs
   private_subnet_cidrs = var.private_subnets_cidrs

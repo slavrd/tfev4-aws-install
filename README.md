@@ -23,5 +23,6 @@ The repository contains:
 - [x] terraform sub-module to external services.
 - [x] terraform to create aws key-pair either as part of the ec2-submodule or a separate sub-module.
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
-- [ ] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
-- [ ] add automation for the initial admin
+- [x] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
+  - [x] make the port 443 health check check the application.
+- [ ] add automation for the initial TFC admin

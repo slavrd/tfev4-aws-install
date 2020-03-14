@@ -1,8 +1,6 @@
-# PTFEv4 EC2 Instance
+# PTFEv4 Auto Scaling Group - EC2 Instance
 
-**DEPRICATED:** This module is not used in the root Terraform module. It is replaced with `asg-ec2-instance`.
-
-A Terraform configuration to build an EC2 instance with PTFEv4 installed. The PTFE installation will external services - AWS S3 and AWS PostgreSQL RDS.
+A Terraform configuration to build an Auto Scaling Group which brings up EC2 instance with PTFEv4 installed. The PTFE installation will external services - AWS S3 and AWS PostgreSQL RDS.
 
 The configuration assumes that it is provided an AMI built with the Packer [project](../packer/README.md) in this repo.
 
@@ -14,7 +12,9 @@ The Terraform configuration provisions:
 
 - Security group which allows network traffic from the EC2 instance according to the TFE [documentation](https://www.terraform.io/docs/enterprise/before-installing/network-requirements.html).
 
-- An EC2 instance based on the specific AMI. The user data will be set to:
+- Auto Scaling Group which will bring up a single EC2 instance and register it in provided target groups.
+
+- Launch Configuration for the EC2 instance which is based on the specific AMI. The user data will be set to:
   
   - create an `/ect/replicated.conf` file based on the input variables.
   - create an `/opt/tfe-installer/settings.conf` file based on the input variables.
