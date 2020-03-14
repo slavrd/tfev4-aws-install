@@ -42,3 +42,9 @@ variable "ptfe_enc_password" {
   description = "Encryption password to be used by PTFE."
   default     = "Password123#"
 }
+
+variable "ptfe_associate_public_ip_address" {
+  type        = bool
+  description = "Wether to associate public ip address with the isntance. Shold be false except if bringin a standalone instance for testing."
+  default     = false
+}

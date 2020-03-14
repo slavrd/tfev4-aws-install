@@ -44,22 +44,23 @@ module "key_pair" {
 module "ptfe_instance" {
   source = "./asg-ec2-instance"
 
-  vpc_id              = module.network.vpc_id
-  subnets_ids         = module.network.private_subnets_ids
-  ami_id              = var.ami_id
-  key_name            = var.key_pair_create ? module.key_pair.key_pair_name : var.key_name
-  instance_type       = var.instance_type
-  name_prefix         = var.name_prefix
-  target_groups_arns  = [module.network.lb_tg_80_arn, module.network.lb_tg_443_arn, module.network.lb_tg_8800_arn]
-  replicated_password = var.replicated_password
-  ptfe_hostname       = var.ptfe_hostname
-  ptfe_enc_password   = var.ptfe_enc_password
-  ptfe_pg_dbname      = var.pg_db_name
-  ptfe_pg_address     = module.external_services.pg_address
-  ptfe_pg_password    = var.pg_password
-  ptfe_pg_user        = var.pg_username
-  ptfe_s3_bucket      = module.external_services.s3_bucket_name
-  ptfe_s3_region      = var.s3_bucket_region
+  vpc_id                      = module.network.vpc_id
+  subnets_ids                 = var.ptfe_associate_public_ip_address ? module.network.public_subnets_ids : module.network.private_subnets_ids
+  ami_id                      = var.ami_id
+  key_name                    = var.key_pair_create ? module.key_pair.key_pair_name : var.key_name
+  instance_type               = var.instance_type
+  name_prefix                 = var.name_prefix
+  target_groups_arns          = [module.network.lb_tg_80_arn, module.network.lb_tg_443_arn, module.network.lb_tg_8800_arn]
+  associate_public_ip_address = var.ptfe_associate_public_ip_address
+  replicated_password         = var.replicated_password
+  ptfe_hostname               = var.ptfe_hostname
+  ptfe_enc_password           = var.ptfe_enc_password
+  ptfe_pg_dbname              = var.pg_db_name
+  ptfe_pg_address             = module.external_services.pg_address
+  ptfe_pg_password            = var.pg_password
+  ptfe_pg_user                = var.pg_username
+  ptfe_s3_bucket              = module.external_services.s3_bucket_name
+  ptfe_s3_region              = var.s3_bucket_region
 
   common_tags = var.common_tags
 
