@@ -1,9 +1,10 @@
 resource "aws_lb" "ptfe" {
-  name_prefix        = "ptfe-" # using hardcoded prefix because of length limitatoin to 6 chars
-  load_balancer_type = "network"
-  internal           = false
-  subnets            = module.ptfe-network.public_subnet_ids
-  tags               = var.common_tags
+  name_prefix                      = "ptfe-" # using hardcoded prefix because of length limitatoin to 6 chars
+  load_balancer_type               = "network"
+  internal                         = false
+  subnets                          = module.ptfe-network.public_subnet_ids
+  enable_cross_zone_load_balancing = true
+  tags                             = var.common_tags
 }
 
 resource "aws_lb_listener" "port_80" {
