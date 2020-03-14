@@ -1,6 +1,6 @@
 # Terraform - PTFEv4 EC2 Instance
 
-A project to deploy PTFEv4 and its external service in AWS, according to HashiCorp AWS reference [architecture](https://www.terraform.io/docs/enterprise/install/automating-the-installer.html).
+A project to deploy PTFEv4 and its external service in AWS, according to HashiCorp AWS reference [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
 
 The Terraform configuration is divided into sub-modules. The root module in this directory is used to tie them together so that all resources can be provisioned with a single run e.g. for a demo.
 

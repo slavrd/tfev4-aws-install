@@ -21,6 +21,7 @@ The repository contains:
 - [x] terraform root module to tie the sub-modules together.
 - [x] terraform sub-module to create the basic network infrastructure.
 - [x] terraform sub-module to external services.
+  - [ ] Make possible to set the RDS instance to multi-az mode.
 - [x] terraform to create aws key-pair either as part of the ec2-submodule or a separate sub-module.
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
 - [x] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
