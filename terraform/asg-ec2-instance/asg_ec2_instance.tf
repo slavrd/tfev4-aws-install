@@ -1,3 +1,8 @@
+locals {
+  asg_name = "${var.name_prefix}ptfe-asg"
+  asg_hook = "${var.name_prefix}ptfe-lifecycle-hook"
+}
+
 resource "aws_launch_configuration" "ptfe" {
   name_prefix                 = var.name_prefix
   image_id                    = var.ami_id
@@ -24,20 +29,29 @@ resource "aws_launch_configuration" "ptfe" {
       ptfe_s3_region    = var.ptfe_s3_region
     }))
 
-    install_wrapper_b64content = base64encode(file("${path.module}/templates/install_wrap.sh"))
+    install_wrapper_b64content = base64encode(templatefile("${path.module}/templates/install_wrap.sh.tmpl", {
+      asg_hook = local.asg_hook
+      asg_name = local.asg_name
+    }))
   }))
 }
 
 resource "aws_autoscaling_group" "ptfe" {
-  name_prefix               = var.name_prefix
+  name                      = local.asg_name
   max_size                  = 1
   min_size                  = 1
-  health_check_grace_period = 1800
+  health_check_grace_period = 300
   health_check_type         = "ELB"
   launch_configuration      = aws_launch_configuration.ptfe.name
   vpc_zone_identifier       = var.subnets_ids
   target_group_arns         = var.target_groups_arns
   wait_for_capacity_timeout = 0 # installing / starting PTFE can take ~30-40 mins so no point terraform waiting for capacity.
+  initial_lifecycle_hook {
+    name                 = local.asg_hook
+    default_result       = "ABANDON"
+    heartbeat_timeout    = 1800
+    lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
+  }
 
   dynamic "tag" {
     for_each = merge({ Name = "${var.name_prefix}instance" }, var.common_tags)
