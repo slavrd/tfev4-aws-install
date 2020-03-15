@@ -1,6 +1,7 @@
 vpc_cidr_block = "172.30.16.0/20"
 public_subnets_cidrs = {
   "172.30.16.0/24" = 0
+  "172.30.16.0/24" = 1
 }
 private_subnets_cidrs = {
   "172.30.24.0/24" = 0
