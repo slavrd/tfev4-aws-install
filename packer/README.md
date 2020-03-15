@@ -10,7 +10,7 @@ The resulting ami will have
 
 * Have [`Packer`](https://packer.io/downloads.html) installed.
 * Have Replicated [installer](https://s3.amazonaws.com/replicated-airgap-work/replicated.tar.gz ) in `assets/replicated.tar.gz`
-* Have TFE airgap package in `assets/terraform-enterprise.airgap`
+* Have TFE airgap package in `assets/terraform-enterprise-<PTFE version>.airgap` where `<PTFE version>` is the same as the string passed to the packer template variable `ptfev4_version`.
 * Have TFE license in `assets/ptfev4.rli`
 * Have the a valid SSL certificate and private key in
   * `assets/cert.pem`
@@ -116,10 +116,10 @@ export AWS_TIMEOUT_SECONDS=3600
 
 At this point the test can be run so that it will build a new AMI with packer or the tests can be provided an existing ami to run against.
 
-- Run test against a new AMI, which will be built with packer
+- Run test against a new AMI, which will be built with packer. In this case need to pass the `-ptfe_ver` flag so the test will set the `ptfev4_version` packer template variable to its value.
 
 ```bash
-go test -v -timeout 60m ./test/
+go test -v -timeout 60m ./test/ -ptfe_ver 'v201912-4'
 ```
 
 - Run tests against existing ami

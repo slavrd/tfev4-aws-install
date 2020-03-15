@@ -19,6 +19,7 @@ import (
 
 // commandline flags
 var ami = flag.String("ami", "", "AMI Id to test instead of building a new one.")
+var ver = flag.String("ver", "", "PTFE version used in the name of the airgap package.")
 
 // PackerAmiTest tests the AMI built by the packer template
 //
@@ -29,10 +30,17 @@ var ami = flag.String("ami", "", "AMI Id to test instead of building a new one."
 func TestPackerAmi(t *testing.T) {
 
 	var amiID string
+	var ptfeVer string
 
 	// parse flags
 	flag.Parse()
 	amiID = *ami
+	ptfeVer = *ver
+
+	// check if ptfeVer was set
+	if ptfeVer == "" && amiID == "" {
+		t.Logf("[WARN] Both ptfe_ver and ami flags were not set. This may cause copying PTFE airgap package to fail.")
+	}
 
 	// check if AWS_REGION env var is set and fail if not
 	awsRegion := os.Getenv("AWS_REGION")
@@ -59,7 +67,7 @@ func TestPackerAmi(t *testing.T) {
 					terratest_aws.CanonicalAccountId, map[string][]string{
 						"name": []string{"ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"},
 					}),
-				"ptfev4_version": "packer-test",
+				"ptfev4_version": ptfeVer,
 				"aws_region":     awsRegion,
 				"tag_owner":      "packer-test-ptfev4-aws-playgroud",
 				"tag_project":    "packer-test-ptfev4-aws-playgroud",
