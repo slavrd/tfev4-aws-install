@@ -21,7 +21,7 @@ resource "aws_iam_role" "ptfe_instance" {
 }
 
 data "aws_iam_policy_document" "ptfe_instance" {
-  
+
   statement {
     sid = "S3Access"
     actions = [
