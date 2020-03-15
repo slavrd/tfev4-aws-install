@@ -162,6 +162,16 @@ func TestPackerAmi(t *testing.T) {
 			dockerVer.Original(), minVer.String(), maxVer.String())
 	}
 
+	// Test if specific commands are installed
+	var cmds = []string{"aws"}
+	for _, cmd := range cmds {
+		err := checkCommandExists(t, h, cmd)
+		if err != nil {
+			t.Errorf("check filed for command %q : %v", cmd, err)
+		}
+		t.Logf("success command %q is present.", cmd)
+	}
+
 	// check if there is enough free space
 	out, err = ssh.CheckSshCommandE(t, h, "df /dev/xvda1  --output=avail")
 	if err != nil {
@@ -186,6 +196,15 @@ func TestPackerAmi(t *testing.T) {
 // checkFileExists checks if a file is presnet on the ssh host
 func checkFileExists(t *testing.T, h ssh.Host, file string) error {
 	out, err := ssh.CheckSshCommandE(t, h, fmt.Sprintf("stat %q", file))
+	if err != nil {
+		return fmt.Errorf("%v: %s", err, out)
+	}
+	return nil
+}
+
+// checkCommandExists checks if a command is presnet on the ssh host and added to PATH
+func checkCommandExists(t *testing.T, h ssh.Host, cmd string) error {
+	out, err := ssh.CheckSshCommandE(t, h, fmt.Sprintf("command -v %q", cmd))
 	if err != nil {
 		return fmt.Errorf("%v: %s", err, out)
 	}
