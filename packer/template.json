@@ -36,8 +36,28 @@
     "provisioners": [
         {
             "type": "file",
-            "source": "{{template_dir}}/assets",
-            "destination": "/tmp"
+            "source": "{{template_dir}}/assets/cert.pem",
+            "destination": "/tmp/cert.pem"
+        },
+        {
+            "type": "file",
+            "source": "{{template_dir}}/assets/privkey.pem",
+            "destination": "/tmp/privkey.pem"
+        },
+        {
+            "type": "file",
+            "source": "{{template_dir}}/assets/replicated.tar.gz",
+            "destination": "/tmp/replicated.tar.gz"
+        },
+        {
+            "type": "file",
+            "source": "{{template_dir}}/assets/ptfev4.rli",
+            "destination": "/tmp/ptfev4.rli"
+        },
+        {
+            "type": "file",
+            "source": "{{template_dir}}/assets/terraform-enterprise-{{user `ptfev4_version`}}.airgap",
+            "destination": "/tmp/terraform-enterprise.airgap"
         },
         {
             "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash {{.Path}}",
