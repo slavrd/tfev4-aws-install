@@ -5,6 +5,7 @@ module "network" {
   public_subnets_cidrs  = var.public_subnets_cidrs
   private_subnets_cidrs = var.private_subnets_cidrs
   name_prefix           = var.name_prefix
+  lb_internal           = var.lb_internal
   common_tags           = var.common_tags
 
 }

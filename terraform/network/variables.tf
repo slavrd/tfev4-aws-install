@@ -15,6 +15,12 @@ variable "private_subnets_cidrs" {
 
 }
 
+variable "lb_internal" {
+  type        = bool
+  description = "Whether to create internal load balancer."
+  default     = false
+}
+
 variable "name_prefix" {
   type        = string
   description = "A string to be used as prefix for generating names of the created resources"
