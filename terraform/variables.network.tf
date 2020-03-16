@@ -14,3 +14,9 @@ variable "private_subnets_cidrs" {
   description = "Map containing the private subnets CIDRs as keys and number as value. The number is used to determine the AWS vailability zone in which the subnet will be created. It is used as an list index to select an AZ in the current AWS region. The map must contain atleast two key/value pairs."
 
 }
+
+variable "lb_internal" {
+  type        = bool
+  description = "Whether to create internal load balancer."
+  default     = false
+}
