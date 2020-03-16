@@ -29,3 +29,4 @@ The repository contains:
   - [x] make the port 443 health check check the application.
   - [x] make auto scaling group set the instance `InService` only after PTFE is up.
 - [ ] add automation for the initial TFC admin
+- [ ] improve readmes with diagrams
