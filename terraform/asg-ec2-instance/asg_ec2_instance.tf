@@ -34,6 +34,10 @@ resource "aws_launch_configuration" "ptfe" {
       asg_name = local.asg_name
     }))
   }))
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_autoscaling_group" "ptfe" {
