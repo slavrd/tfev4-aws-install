@@ -35,7 +35,7 @@ export AWS_REGION=<THE AWS REGION TO CREATE THE AMI>
 export AWS_TIMEOUT_SECONDS=3600
 ```
 
-- set the packer variables defined in `template.json`.vHelp on setting packer template variables can be found [here](https://packer.io/docs/templates/user-variables.html).
+- set the packer variables defined in `template.json`. Help on setting packer template variables can be found [here](https://packer.io/docs/templates/user-variables.html).
   - `base_ami_id` - must be an ubuntu image.
   - `ptfev4_version` - a string used in the AMI name.
   - `tag_owner` and `tag_project` - the AMI wil be tagged with `owner` and `project` tags using the corresponding values from the variables.
@@ -116,10 +116,10 @@ export AWS_TIMEOUT_SECONDS=3600
 
 At this point the test can be run so that it will build a new AMI with packer or the tests can be provided an existing ami to run against.
 
-- Run test against a new AMI, which will be built with packer. In this case need to pass the `-ptfe_ver` flag so the test will set the `ptfev4_version` packer template variable to its value.
+- Run test against a new AMI, which will be built with packer. In this case need to pass the `-ver` flag so the test will set the `ptfev4_version` packer template variable to its value.
 
 ```bash
-go test -v -timeout 60m ./test/ -ptfe_ver 'v201912-4'
+go test -v -timeout 60m ./test/ -ver 'v201912-4'
 ```
 
 - Run tests against existing ami
