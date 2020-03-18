@@ -1,8 +1,12 @@
 vpc_cidr_block = "172.30.16.0/20"
+
+# my own module expect "cidr" = "AZ"
 public_subnets_cidrs = {
   "172.30.16.0/24" = 0
   "172.30.16.0/24" = 1
 }
+
+# my own module expect "cidr" = "AZ"
 private_subnets_cidrs = {
   "172.30.24.0/24" = 0
   "172.30.25.0/24" = 1
