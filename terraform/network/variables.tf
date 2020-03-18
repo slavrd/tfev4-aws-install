@@ -4,15 +4,20 @@ variable "vpc_cidr_block" {
 }
 
 variable "public_subnets_cidrs" {
-  type        = map(number)
-  description = "Map containing the public subnets CIDRs as keys and number as value. The number is used to determine the AWS vailability zone in which the subnet will be created. It is used as an list index to select an AZ in the current AWS region. The map must contain atleast two key/value pairs."
-
+  type = list(object({
+    cidr     = string
+    az_index = number
+  }))
+  description = "List of objects reprisenting the public subnets CIDRs and their availability zones. The az_index property is used as an index to retireve a zone from the list of the availability zones for the current AWS region."
 }
 
 variable "private_subnets_cidrs" {
-  type        = map(number)
-  description = "Map containing the private subnets CIDRs as keys and number as value. The number is used to determine the AWS vailability zone in which the subnet will be created. It is used as an list index to select an AZ in the current AWS region. The map must contain atleast two key/value pairs."
-
+  type = list(object({
+    cidr     = string
+    az_index = number
+  }))
+  default     = []
+  description = "List of objects reprisenting the private subnets CIDRs and their availability zones. The az_index property is used as an index to retireve a zone from the list of the availability zones for the current AWS region."
 }
 
 variable "lb_internal" {
