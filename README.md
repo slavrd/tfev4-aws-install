@@ -14,9 +14,15 @@ The repository contains:
 
 ## TODO
 
+- [ ] `packer` - check if AMI can be built with a smaller disk and this disk increased during EC2 instance provisioning. Should substantially reduce build time.
+- [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
+- [ ] add automation for the initial TFC admin
+- [ ] improve readmes with diagrams
+
+### Done
+
 - [x] packer project to create an AWS AMI with docker and static PTFEv4 setup files.
   - [x] add test for the AMI
-  - [ ] check if AMI can be built with a smaller disk and this disk increased during EC2 instance provisioning. Should substantially reduce build time.
 - [x] terraform sub-module to create the PTFEv4 instance.
 - [x] terraform module to provision a DNS record for PTFE.
 - [x] terraform root module to tie the sub-modules together.
@@ -24,9 +30,6 @@ The repository contains:
 - [x] terraform sub-module to external services.
   - [x] Make possible to set the RDS instance to multi-az mode.
 - [x] terraform to create aws key-pair either as part of the ec2-submodule or a separate sub-module.
-- [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
 - [x] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
   - [x] make the port 443 health check check the application.
   - [x] make auto scaling group set the instance `InService` only after PTFE is up.
-- [ ] add automation for the initial TFC admin
-- [ ] improve readmes with diagrams
