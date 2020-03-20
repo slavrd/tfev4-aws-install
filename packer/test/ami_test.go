@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -178,25 +177,6 @@ func TestPackerAmi(t *testing.T) {
 			t.Errorf("check filed for command %q : %v", cmd, err)
 		}
 		t.Logf("success command %q is present.", cmd)
-	}
-
-	// check if there is enough free space
-	out, err = ssh.CheckSshCommandE(t, h, "df /dev/xvda1  --output=avail")
-	if err != nil {
-		t.Errorf("success fail docker check: %v: %s", err, out)
-	} else {
-		t.Logf("available space on /dev/xvda1: %s", out)
-	}
-
-	var minSize = 40 * 1024 * 1024 // size is returned in kilobytes
-	sizeStr := strings.TrimSpace(strings.Split(out, "\n")[1])
-	size, err := strconv.Atoi(sizeStr)
-	if err != nil {
-		t.Errorf("failed parsing disk free space size %q: %v", sizeStr, err)
-	} else {
-		if size < minSize {
-			t.Errorf("there is not enough free disk space: got: %v which is less than %v", size, minSize)
-		}
 	}
 
 }
