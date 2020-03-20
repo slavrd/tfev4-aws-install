@@ -8,7 +8,7 @@
         "tag_project": "",
         "aws_region": "{{env `AWS_REGION`}}",
         "aws_instance_type": "m5a.large",
-        "aws_instance_root_volume_size": "50"
+        "aws_instance_root_volume_size": "8"
     },
     "builders": [
         {
