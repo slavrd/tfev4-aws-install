@@ -12,6 +12,10 @@ resource "aws_launch_configuration" "ptfe" {
   associate_public_ip_address = var.associate_public_ip_address
   security_groups             = [aws_security_group.ptfe_instance.id]
 
+  root_block_device {
+    volume_size = var.root_block_device_size
+  }
+
   user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
     replicated_conf_b64content = base64encode(templatefile("${path.module}/templates/replicated.conf.tmpl", {
       ptfe_hostname       = var.ptfe_hostname
