@@ -26,6 +26,12 @@ variable "instance_type" {
   default     = "m5a.large"
 }
 
+variable "root_block_device_size" {
+  type        = number
+  description = "The size of the root block device volume in gigabytes"
+  default     = 50
+}
+
 variable "replicated_password" {
   type        = string
   description = "Password to set for the replaicate console."

@@ -14,7 +14,6 @@ The repository contains:
 
 ## TODO
 
-- [ ] `packer` - check if AMI can be built with a smaller disk and this disk increased during EC2 instance provisioning. Should substantially reduce build time.
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
 - [ ] add automation for the initial TFC admin
 - [ ] improve readmes with diagrams
@@ -23,6 +22,7 @@ The repository contains:
 
 - [x] packer project to create an AWS AMI with docker and static PTFEv4 setup files.
   - [x] add test for the AMI
+- [x] `packer` - check if AMI can be built with a smaller disk and this disk increased during EC2 instance provisioning. Should substantially reduce build time.
 - [x] terraform sub-module to create the PTFEv4 instance.
 - [x] terraform module to provision a DNS record for PTFE.
 - [x] terraform root module to tie the sub-modules together.

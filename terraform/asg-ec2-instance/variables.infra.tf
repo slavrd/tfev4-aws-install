@@ -39,6 +39,12 @@ variable "name_prefix" {
   default     = "ptfev4-"
 }
 
+variable "root_block_device_size" {
+  type        = number
+  description = "The size of the root block device volume in gigabytes"
+  default     = 50
+}
+
 variable "associate_public_ip_address" {
   type        = bool
   description = "Wether to associate public ip address with the isntance. Shold be false except if bringin a standalone instance for testing."
