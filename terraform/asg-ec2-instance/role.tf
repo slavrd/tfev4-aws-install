@@ -28,7 +28,8 @@ data "aws_iam_policy_document" "ptfe_instance" {
       "s3:*"
     ]
     resources = [
-      "arn:aws:s3:::${var.ptfe_s3_bucket}"
+      "arn:aws:s3:::${var.ptfe_s3_bucket}",
+      "arn:aws:s3:::${var.ptfe_s3_bucket}/*"
     ]
   }
 
