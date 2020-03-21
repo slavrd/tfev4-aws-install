@@ -12,6 +12,10 @@ The repository contains:
 
     The Terraform code is split in several sub-modules. The root module is intended to tie together these sub-modules to bring up the Network, External Services and PTFE instance itself in a single run. Check the [readme](./terraform/README.md) for details on what it does and how to use it.
 
+    Below is a diagram of the AWS infrastructure which will be deployed
+
+    ![PTFE Diagram](./ptfe-diagram.svg)
+
 ## TODO
 
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
