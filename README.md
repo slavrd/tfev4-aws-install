@@ -12,11 +12,14 @@ The repository contains:
 
     The Terraform code is split in several sub-modules. The root module is intended to tie together these sub-modules to bring up the Network, External Services and PTFE instance itself in a single run. Check the [readme](./terraform/README.md) for details on what it does and how to use it.
 
+    Below is a diagram of the AWS infrastructure which will be deployed
+
+    ![PTFE Diagram](./ptfe-diagram.svg)
+
 ## TODO
 
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
 - [ ] add automation for the initial TFC admin
-- [ ] improve readmes with diagrams
 
 ### Done
 
@@ -33,3 +36,4 @@ The repository contains:
 - [x] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
   - [x] make the port 443 health check check the application.
   - [x] make auto scaling group set the instance `InService` only after PTFE is up.
+- [x] improve readmes with diagrams
