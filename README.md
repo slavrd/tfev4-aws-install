@@ -20,7 +20,6 @@ The repository contains:
 
 - [ ] add a test for the root terraform module - the effort to add separate tests for each module is not really worthed as they would need additional configuration to be deployed and this configuration would actually be very similar to the rest of the modules.
 - [ ] add automation for the initial TFC admin
-- [ ] improve readmes with diagrams
 
 ### Done
 
@@ -37,3 +36,4 @@ The repository contains:
 - [x] add a load balancer and auto-scaling group according to the reference AWS [architecture](https://www.terraform.io/docs/enterprise/before-installing/reference-architecture/aws.html).
   - [x] make the port 443 health check check the application.
   - [x] make auto scaling group set the instance `InService` only after PTFE is up.
+- [x] improve readmes with diagrams
