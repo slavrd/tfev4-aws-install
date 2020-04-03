@@ -179,13 +179,23 @@ func TestPackerAmi(t *testing.T) {
 	}
 
 	// Test if specific commands are installed
-	var cmds = []string{"aws"}
+	var cmds = []string{"aws", "htop", "ctop"}
 	for _, cmd := range cmds {
 		err := checkCommandExists(t, h, cmd)
 		if err != nil {
 			t.Errorf("check filed for command %q : %v", cmd, err)
 		}
 		t.Logf("success command %q is present.", cmd)
+	}
+
+	// Test if periodic apt upgrades are disabled
+	out, err = ssh.CheckSshCommandE(t, h, "cat /etc/apt/apt.conf.d/10periodic | grep 'APT::Periodic::Enable'")
+	if err != nil {
+		t.Errorf("failed running \"cat /etc/apt/apt.conf.d/10periodic | grep 'APT::Periodic::Enable'\": %v", err)
+	} else if out != "APT::Periodic::Enable \"0\";\n" {
+		t.Errorf("periodic apt updates are not disabled, want:'APT::Periodic::Enable \"0\";', got: %q", out)
+	} else {
+		t.Log("success. periodic apt updates are disabled.")
 	}
 
 }

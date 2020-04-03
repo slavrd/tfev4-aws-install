@@ -29,6 +29,7 @@ The repository contains:
 - [x] `packer` - make replicated installer and PTFE airgap package be downloaded directly to the EC2 instance to further reduce build time.
 - [x] `packer` - make it possible to install specific replicated version. 
 - [x] `packer` - install ctop, htop on the AMI.
+- [x] `packer` - disable periodic apt updates.
 - [x] terraform sub-module to create the PTFEv4 instance.
 - [x] terraform module to provision a DNS record for PTFE.
 - [x] terraform root module to tie the sub-modules together.
