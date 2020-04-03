@@ -121,7 +121,8 @@ At this point the test can be run so that it will build a new AMI with packer or
 
 - Run the full test - build a new AMI with packer, provision VM based on it, run tests on it, clean up. In this case need to
   - pass the `-url` flag to set the `ptfev4_url` packer input variable.
-  - pass the `-ver` flag so the test will set the `ptfev4_version` packer template variable to its value.
+  - pass the `-ver` flag so the test will set the `ptfev4_version` packer template variable.
+  - (optional) pass the `-replicated-ver` flag to set the `replicated_version` packer template variable.
 
 ```bash
 go test -v -timeout 60m ./test/ -ver 'v201912-4' -url 'https://VALID_PTFE_DOWNLOAD_URL'
