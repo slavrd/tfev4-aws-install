@@ -57,7 +57,7 @@
             "execute_command": "{{.Vars}} sudo -E -S bash {{.Path}}",
             "scripts": [
                 "{{template_dir}}/scripts/setup_download_replicated.sh",
-                "{{template_dir}}/scripts/setup_docker.sh",
+                "{{template_dir}}/scripts/setup_main.sh",
                 "{{template_dir}}/scripts/setup_files.sh",
                 "{{template_dir}}/scripts/setup_cleanup.sh"
             ],
