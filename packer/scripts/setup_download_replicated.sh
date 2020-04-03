@@ -12,7 +12,15 @@
 }
 
 echo "==> downloading PTFE airgap package from ${PTFE_AIRGAP_URL}"
-wget -O /tmp/terraform-enterprise.airgap $PTFE_AIRGAP_URL || echo "filed downloading PTFE airgap package"; exit 1
+wget -nv -O /tmp/terraform-enterprise.airgap $PTFE_AIRGAP_URL || {
+    echo "==> failed downloading PTFE airgap package"
+    exit 1
+}
 
 echo "==> downloading Replicated installer from ${REPLICATED_INSTALLER_URL}"
-wget -O /tmp/replicated.tar.gz $REPLICATED_INSTALLER_URL || echo "filed downloading Replicated installer package"; exit 1
+wget -nv -O /tmp/replicated.tar.gz $REPLICATED_INSTALLER_URL || {
+    echo "==> failed downloading Replicated installer package" 
+    exit 1 
+}
+
+exit 0
