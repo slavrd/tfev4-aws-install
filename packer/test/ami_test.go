@@ -19,6 +19,8 @@ import (
 // commandline flags
 var ami = flag.String("ami", "", "AMI Id to test instead of building a new one.")
 var ver = flag.String("ver", "", "PTFE version used in the name of the airgap package.")
+var url = flag.String("url", "", "PTFE valid download URL.")
+var replicatedVer = flag.String("replicated-ver", "", "Replicated version to use. Optional.")
 
 // PackerAmiTest tests the AMI built by the packer template
 //
@@ -30,15 +32,19 @@ func TestPackerAmi(t *testing.T) {
 
 	var amiID string
 	var ptfeVer string
+	var ptfeURL string
+	var rVer string
 
 	// parse flags
 	flag.Parse()
 	amiID = *ami
 	ptfeVer = *ver
+	ptfeURL = *url
+	rVer = *replicatedVer
 
-	// check if ptfeVer was set
-	if ptfeVer == "" && amiID == "" {
-		t.Logf("[WARN] Both ptfe_ver and ami flags were not set. This may cause copying PTFE airgap package to fail.")
+	// Ensure that one of the url or ami flags were passed.
+	if ptfeURL == "" && amiID == "" {
+		t.Fatal("both, url and ami, flags were not set.")
 	}
 
 	// check if AWS_REGION env var is set and fail if not
@@ -66,17 +72,20 @@ func TestPackerAmi(t *testing.T) {
 					terratest_aws.CanonicalAccountId, map[string][]string{
 						"name": []string{"ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"},
 					}),
-				"ptfev4_version": ptfeVer,
-				"aws_region":     awsRegion,
-				"tag_owner":      "packer-test-ptfev4-aws-playgroud",
-				"tag_project":    "packer-test-ptfev4-aws-playgroud",
+				"ptfev4_version":     ptfeVer,
+				"ptfev4_url":         ptfeURL,
+				"replicated_version": rVer,
+				"aws_region":         awsRegion,
+				"tag_owner":          "packer-test-ptfev4-aws-playgroud",
+				"tag_project":        "packer-test-ptfev4-aws-playgroud",
 			},
 			// Configure retries for intermittent errors
 			RetryableErrors:    DefaultRetryablePackerErrors,
 			TimeBetweenRetries: DefaultTimeBetweenPackerRetries,
 			MaxRetries:         DefaultMaxPackerRetries,
 		}
-		amiID, err := packer.BuildArtifactE(t, po)
+		var err error
+		amiID, err = packer.BuildArtifactE(t, po)
 		if err != nil {
 			t.Fatalf("packer build failed: %v", err)
 		}
@@ -141,9 +150,9 @@ func TestPackerAmi(t *testing.T) {
 	for _, file := range files {
 		err = checkFileExists(t, h, file)
 		if err != nil {
-			t.Errorf("check filed for file %q : %v", file, err)
+			t.Errorf("check failed for file %q : %v", file, err)
 		}
-		t.Logf("success file %q found.", file)
+		t.Logf("success, file %q found.", file)
 	}
 
 	// Test if Docker CE is installed and running
@@ -157,7 +166,7 @@ func TestPackerAmi(t *testing.T) {
 	// Test if Docker CE is correct version
 	dockerVer, err := mmsemver.NewVersion(strings.TrimSpace(strings.TrimSuffix(out, "\n")))
 	if err != nil {
-		t.Errorf("fail parsing docker version %q: %v", out, err)
+		t.Errorf("failed to parse docker version %q: %v", out, err)
 	}
 
 	var minVer, maxVer *mmsemver.Constraints
