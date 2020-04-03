@@ -26,6 +26,9 @@ The repository contains:
 - [x] packer project to create an AWS AMI with docker and static PTFEv4 setup files.
   - [x] add test for the AMI
 - [x] `packer` - check if AMI can be built with a smaller disk and this disk increased during EC2 instance provisioning. Should substantially reduce build time.
+- [x] `packer` - make replicated installer and PTFE airgap package be downloaded directly to the EC2 instance to further reduce build time.
+- [x] `packer` - make it possible to install specific replicated version. 
+- [x] `packer` - install ctop, htop on the AMI.
 - [x] terraform sub-module to create the PTFEv4 instance.
 - [x] terraform module to provision a DNS record for PTFE.
 - [x] terraform root module to tie the sub-modules together.

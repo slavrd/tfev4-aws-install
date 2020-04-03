@@ -11,7 +11,9 @@ sudo apt-get install -y \
     gnupg-agent \
     software-properties-common \
     jq \
-    awscli
+    awscli \
+    ctop \
+    htop
 
 # Add docker GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
