@@ -1,6 +1,6 @@
-# PTFEv4 External Services
+# TFEv4 External Services
 
-A Terraform configuration to build the external services needed for a PTFEv4 install.
+A Terraform configuration to build the external services needed for a TFEv4 install.
 
 ## Description
 

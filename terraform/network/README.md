@@ -1,6 +1,6 @@
-# PTFEv4 network
+# TFEv4 network
 
-A Terraform module to manage AWS networks resources needed to install PTFEv4.
+A Terraform module to manage AWS networks resources needed to install TFEv4.
 
 It uses this [module](https://github.com/slavrd/terraform-aws-basic-network) to manage most of the resources.
 
