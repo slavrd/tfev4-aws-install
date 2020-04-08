@@ -24,19 +24,21 @@ private_subnets_cidrs = [
   },
 ]
 
-name_prefix = "my-ptfev4-"
+name_prefix = "my-tfe-"
 
-ami_id          = "my.ptfe.install.ami.id"
+ami_id          = "my.tfe.install.ami.id"
 key_name        = "my-key-pair"
 key_pair_create = true
-ptfe_hostname   = "ptfev4.domain.com"
+tfe_hostname   = "tfe.domain.com"
 
-s3_bucket_name   = "my-ptfev4"
-s3_bucket_region = "eu-central-1"
-pg_password      = "Password123#"
-
+s3_bucket_name      = "my-tfe"
+s3_bucket_region    = "eu-central-1"
+pg_password         = "Password123#"
+replicated_password = "Password123#"
+tfe_enc_password    = "Password123#"
+replicated_password     = "Password123#"
 
 common_tags = {
   owner   = "owner@domain.com"
-  project = "terraform-ptfev4"
+  project = "terraform-tfe"
 }

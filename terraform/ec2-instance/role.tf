@@ -1,4 +1,4 @@
-resource "aws_iam_role" "ptfe_instance" {
+resource "aws_iam_role" "tfe_instance" {
   name = "test_role"
 
   assume_role_policy = <<-EOF
@@ -22,7 +22,7 @@ resource "aws_iam_role" "ptfe_instance" {
 
 resource "aws_iam_role_policy" "test_policy" {
   name = "test_policy"
-  role = aws_iam_role.ptfe_instance.id
+  role = aws_iam_role.tfe_instance.id
 
   policy = <<-EOF
   {
@@ -40,7 +40,7 @@ resource "aws_iam_role_policy" "test_policy" {
   EOF
 }
 
-resource "aws_iam_instance_profile" "ptfe_instance" {
-  name = "ptfe-instance"
-  role = aws_iam_role.ptfe_instance.name
+resource "aws_iam_instance_profile" "tfe_instance" {
+  name = "tfe-instance"
+  role = aws_iam_role.tfe_instance.name
 }

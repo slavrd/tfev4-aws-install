@@ -1,10 +1,10 @@
-output "ptfe_address" {
-  value       = "https://${var.ptfe_hostname}"
-  description = "Address for accessing the PTFE instance"
+output "tfe_address" {
+  value       = "https://${var.tfe_hostname}"
+  description = "Address for accessing the tfe instance"
 }
 
 output "replicated_address" {
-  value       = "https://${var.ptfe_hostname}:8800"
+  value       = "https://${var.tfe_hostname}:8800"
   description = "Address for accessing the replicate console"
 }
 

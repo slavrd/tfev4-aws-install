@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Performs box final cleanup after provisioning.
 # Intended to be run as a last provisioner
 
@@ -12,6 +13,7 @@ sudo rm -rf /tmp/*
 
 # Removing leftover leases and persistent rules
 echo "==> cleaning up dhcp leases"
+
 # Ubuntu 10.04
 if [ -d "/var/lib/dhcp3" ]; then
     rm /var/lib/dhcp3/*

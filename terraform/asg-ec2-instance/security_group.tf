@@ -1,6 +1,6 @@
-resource "aws_security_group" "ptfe_instance" {
-  name        = "${var.name_prefix}ptfe-instance"
-  description = "Allow needed needed traffic for PTFE."
+resource "aws_security_group" "tfe_instance" {
+  name        = "${var.name_prefix}tfe-instance"
+  description = "Allow needed needed traffic for tfe."
   vpc_id      = var.vpc_id
 }
 
@@ -11,7 +11,7 @@ resource "aws_security_group_rule" "allow_http" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "allow_https" {
@@ -21,7 +21,7 @@ resource "aws_security_group_rule" "allow_https" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "replicated_dashboard" {
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "replicated_dashboard" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "ssh" {
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "ssh" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "sg_local_1" {
@@ -49,8 +49,8 @@ resource "aws_security_group_rule" "sg_local_1" {
   from_port                = 9870
   to_port                  = 9880
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.ptfe_instance.id
-  security_group_id        = aws_security_group.ptfe_instance.id
+  source_security_group_id = aws_security_group.tfe_instance.id
+  security_group_id        = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "sg_local_2" {
@@ -58,8 +58,8 @@ resource "aws_security_group_rule" "sg_local_2" {
   from_port                = 23000
   to_port                  = 23100
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.ptfe_instance.id
-  security_group_id        = aws_security_group.ptfe_instance.id
+  source_security_group_id = aws_security_group.tfe_instance.id
+  security_group_id        = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "allow_all_outbound" {
@@ -69,5 +69,5 @@ resource "aws_security_group_rule" "allow_all_outbound" {
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }

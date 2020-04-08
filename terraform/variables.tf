@@ -7,7 +7,7 @@ variable "common_tags" {
 variable "name_prefix" {
   type        = string
   description = "A string to be used as prefix for generating names of the created resources"
-  default     = "ptfe-"
+  default     = "tfe-"
 }
 
 variable "s3_bucket_name" {

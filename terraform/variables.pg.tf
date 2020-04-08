@@ -49,7 +49,7 @@ variable "pg_backup_retention_period" {
 variable "pg_db_name" {
   type        = string
   description = "The name of the database to create when the PostgreSQL instance is created."
-  default     = "ptfe"
+  default     = "tfe"
 }
 
 variable "pg_username" {
