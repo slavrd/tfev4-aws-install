@@ -7,9 +7,9 @@
 }
 
 if [ "${REPLICATED_VER}" ] ; then
-         REPLICATED_INSTALLER_URL="https://s3.amazonaws.com/replicated-airgap-work/stable/replicated-${REPLICATED_VER}%2B${REPLICATED_VER}%2B${REPLICATED_VER}.tar.gz"
+    REPLICATED_INSTALLER_URL="https://s3.amazonaws.com/replicated-airgap-work/stable/replicated-${REPLICATED_VER}%2B${REPLICATED_VER}%2B${REPLICATED_VER}.tar.gz"
 else
-        REPLICATED_INSTALLER_URL='https://s3.amazonaws.com/replicated-airgap-work/replicated.tar.gz'
+    REPLICATED_INSTALLER_URL='https://s3.amazonaws.com/replicated-airgap-work/replicated.tar.gz'
 fi
 
 echo "==> downloading TFE airgap package from ${TFE_AIRGAP_URL}"

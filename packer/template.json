@@ -2,8 +2,8 @@
     "variables": {
       "build_name": "tfe-aws",
       "base_ami_id": "",
-      "tfe_version": "",
-      "tfe_url": null,
+      "tfev4_version": "",
+      "tfev4_url": null,
       "replicated_version": "",
       "docker_version_string": "5:18.09.2~3-0~ubuntu-bionic",
       "ami_tag_owner": "",
@@ -19,12 +19,12 @@
         "source_ami": "{{user `base_ami_id`}}",
         "region": "{{user `aws_region`}}",
         "instance_type": "{{user `aws_instance_type`}}",
-        "ami_name": "tfe-{{user `tfe_version`}}-{{isotime \"200601021504\"}}",
+        "ami_name": "tfe-{{user `tfev4_version`}}-{{isotime \"200601021504\"}}",
         "tags": {
           "owner": "{{user `ami_tag_owner`}}",
           "project": "{{user `ami_tag_project`}}",
           "base_ami": "{{ .SourceAMIName }}",
-          "tfe_version": "{{user `tfe_version`}}",
+          "tfe_version": "{{user `tfev4_version`}}",
           "replicated_version": "{{user `replicated_version`}}"
         },
         "launch_block_device_mappings": [
@@ -50,8 +50,8 @@
       },
       {
         "type": "file",
-        "source": "{{template_dir}}/assets/tfe.rli",
-        "destination": "/tmp/tfe.rli"
+        "source": "{{template_dir}}/assets/tfev4.rli",
+        "destination": "/tmp/tfev4.rli"
       },
       {
         "execute_command": "{{.Vars}} sudo -E -S bash {{.Path}}",
@@ -64,7 +64,7 @@
         "environment_vars": [
           "DEBIAN_FRONTEND=noninteractive",
           "DOCKER_VERSION_STRING={{user `docker_version_string`}}",
-          "TFE_AIRGAP_URL={{user `tfe_url`}}",
+          "TFE_AIRGAP_URL={{user `tfev4_url`}}",
           "REPLICATED_VER={{user `replicated_version`}}"
         ],
         "type": "shell"

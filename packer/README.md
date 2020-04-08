@@ -1,4 +1,4 @@
-# PTFEv4 AWS AMI
+# TFEv4 AWS AMI
 
 A packer project for the creation of an AWS AMI with ready for TFEv4 airgap install based on the TFE [documentation](https://www.terraform.io/docs/enterprise/install/automating-the-installer.html).
 
@@ -9,8 +9,8 @@ The resulting ami will have
 ## Prerequisites
 
 * Have [`Packer`](https://packer.io/downloads.html) installed.
-* A PTFEv4 airgap package download link.
-* Have TFE license in `assets/ptfev4.rli`
+* A TFEv4 airgap package download link.
+* Have TFE license in `assets/tfev4.rli`
 * Have the a valid SSL certificate and private key in
   * `assets/cert.pem`
   * `assets/privkey.pem`
@@ -36,8 +36,8 @@ export AWS_TIMEOUT_SECONDS=3600
 
 - set the packer variables defined in `template.json`. Help on setting packer template variables can be found [here](https://packer.io/docs/templates/user-variables.html).
   - `base_ami_id` - must be an ubuntu image.
-  - `ptfev4_version` - a string used in the AMI name and for tagging.
-  - `ptfev4_url` - a URL from which to download the PTFEv4 airgap package.
+  - `tfev4_version` - a string used in the AMI name and for tagging.
+  - `tfev4_url` - a URL from which to download the TFEv4 airgap package.
   - `replicated_version` - a version of the Replicated installer to download. Version can be checked [here](https://release-notes.replicated.com/). If not provided will use latest and will not set value for the `replicatad_version` ami tag.
   - `tag_owner` and `tag_project` - the AMI wil be tagged with `owner` and `project` tags using the corresponding values from the variables.
 
@@ -46,10 +46,10 @@ export AWS_TIMEOUT_SECONDS=3600
 ```bash
 packer build \
   -var 'base_ami_id=ami-0718a1ae90971ce4d' \
-  -var 'ptfev4_version=v201912-4' \
-  -var 'ptfev4_url=https://VALID_PTFE_DOWNLOAD_URL'
+  -var 'tfev4_version=v201912-4' \
+  -var 'tfev4_url=https://VALID_TFE_DOWNLOAD_URL'
   -var 'replicated_version=2.42.5' \
-  -var 'tag_owner=you@your.org' -var 'tag_project=ptfev4' \
+  -var 'tag_owner=you@your.org' -var 'tag_project=tfev4' \
   template.json
 ```
 
@@ -120,12 +120,12 @@ export AWS_TIMEOUT_SECONDS=3600
 At this point the test can be run so that it will build a new AMI with packer or the tests can be provided an existing ami to run against.
 
 - Run the full test - build a new AMI with packer, provision VM based on it, run tests on it, clean up. In this case need to
-  - pass the `-url` flag to set the `ptfev4_url` packer input variable.
-  - pass the `-ver` flag so the test will set the `ptfev4_version` packer template variable.
+  - pass the `-url` flag to set the `tfev4_url` packer input variable.
+  - pass the `-ver` flag so the test will set the `tfev4_version` packer template variable.
   - (optional) pass the `-replicated-ver` flag to set the `replicated_version` packer template variable.
 
 ```bash
-go test -v -timeout 60m ./test/ -ver 'v201912-4' -url 'https://VALID_PTFE_DOWNLOAD_URL'
+go test -v -timeout 60m ./test/ -ver 'v201912-4' -url 'https://VALID_TFE_DOWNLOAD_URL'
 ```
 
 - Run tests against an existing ami

@@ -1,4 +1,4 @@
-# PTFEv4 key pair
+# TFEv4 key pair
 
 A Terraform module to manage an AWS key pair.
 

@@ -10,13 +10,13 @@ variable "key_name" {
 
 variable "key_pair_create" {
   type        = bool
-  description = "Wether to create an AWS key pair at all."
+  description = "Wether to create an AWS key pair at all. If false the key_name variable must be set to an existing aws ec2 key pair."
   default     = false
 }
 
 variable "public_key_path" {
   type        = string
-  description = "Public key to use for the AWS key pair createion. If not provided a new TLS public/private key pair will be generated."
+  description = "Public key to use for the AWS key pair creation. If not provided a new TLS public/private key pair will be generated."
   default     = ""
 }
 
@@ -28,13 +28,13 @@ variable "instance_type" {
 
 variable "root_block_device_size" {
   type        = number
-  description = "The size of the root block device volume in gigabytes"
+  description = "The size of the root block device volume in gigabytes."
   default     = 50
 }
 
 variable "replicated_password" {
   type        = string
-  description = "Password to set for the replaicate console."
+  description = "Password to set for the replaicated console."
 }
 
 variable "tfe_hostname" {

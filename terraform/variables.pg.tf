@@ -6,13 +6,13 @@ variable "pg_instance_class" {
 
 variable "pg_engine_version" {
   type        = string
-  description = "The engine versoin of the PostgreSQL instance."
+  description = "The engine version of the PostgreSQL instance."
   default     = "10.10"
 }
 
 variable "pg_allocated_storage" {
   type        = number
-  description = "Storage ammount to allocate for the PostgreSQL instance."
+  description = "Storage amount in GBs to allocate for the PostgreSQL instance."
   default     = 100
 }
 
@@ -30,7 +30,7 @@ variable "pg_multi_az" {
 
 variable "pg_parameter_group_name" {
   type        = string
-  description = "Name of the DB parameter group to associate"
+  description = "Name of the DB parameter group to associate."
   default     = null
 }
 

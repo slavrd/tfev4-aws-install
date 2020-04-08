@@ -1,6 +1,6 @@
-# PTFEv4 Auto Scaling Group - EC2 Instance
+# TFEv4 Auto Scaling Group - EC2 Instance
 
-A Terraform configuration to build an Auto Scaling Group which brings up EC2 instance with PTFEv4 installed. The PTFE installation will external services - AWS S3 and AWS PostgreSQL RDS.
+A Terraform configuration to build an Auto Scaling Group which brings up EC2 instance with TFEv4 installed. The TFE installation will external services - AWS S3 and AWS PostgreSQL RDS.
 
 The configuration assumes that it is provided an AMI built with the Packer [project](../packer/README.md) in this repo.
 

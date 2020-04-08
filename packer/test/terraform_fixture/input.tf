@@ -1,12 +1,12 @@
 variable "vpc_id" {
   type        = string
-  description = "Id of the VPC in which to deploy the PTFE instance."
+  description = "Id of the VPC in which to deploy the TFE instance."
   default     = null
 }
 
 variable "subnet_id" {
   type        = string
-  description = "Subnet in which to create PTFE instance."
+  description = "Subnet in which to create TFE instance."
   default     = null
 }
 
@@ -19,8 +19,8 @@ variable "common_tags" {
   type        = map(string)
   description = "The common tags to use with the managed resources. The default vaule is used as an example."
   default = {
-    owner   = "packer-test-ptfev4-aws-playgroud"
-    project = "packer-test-ptfev4-aws-playgroud"
+    owner   = "packer-test-tfev4-aws-install"
+    project = "packer-test-ptfev4-aws-install"
   }
 }
 

@@ -18,8 +18,8 @@ import (
 
 // commandline flags
 var ami = flag.String("ami", "", "AMI Id to test instead of building a new one.")
-var ver = flag.String("ver", "", "PTFE version used in the name of the airgap package.")
-var url = flag.String("url", "", "PTFE valid download URL.")
+var ver = flag.String("ver", "", "TFE version used in the name of the airgap package.")
+var url = flag.String("url", "", "TFE valid download URL.")
 var replicatedVer = flag.String("replicated-ver", "", "Replicated version to use. Optional.")
 
 // PackerAmiTest tests the AMI built by the packer template
@@ -31,19 +31,19 @@ var replicatedVer = flag.String("replicated-ver", "", "Replicated version to use
 func TestPackerAmi(t *testing.T) {
 
 	var amiID string
-	var ptfeVer string
-	var ptfeURL string
+	var tfeVer string
+	var tfeURL string
 	var rVer string
 
 	// parse flags
 	flag.Parse()
 	amiID = *ami
-	ptfeVer = *ver
-	ptfeURL = *url
+	tfeVer = *ver
+	tfeURL = *url
 	rVer = *replicatedVer
 
 	// Ensure that one of the url or ami flags were passed.
-	if ptfeURL == "" && amiID == "" {
+	if tfeURL == "" && amiID == "" {
 		t.Fatal("both, url and ami, flags were not set.")
 	}
 
@@ -72,12 +72,12 @@ func TestPackerAmi(t *testing.T) {
 					terratest_aws.CanonicalAccountId, map[string][]string{
 						"name": []string{"ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"},
 					}),
-				"ptfev4_version":     ptfeVer,
-				"ptfev4_url":         ptfeURL,
+				"tfev4_version":      tfeVer,
+				"tfev4_url":          tfeURL,
 				"replicated_version": rVer,
 				"aws_region":         awsRegion,
-				"tag_owner":          "packer-test-ptfev4-aws-playgroud",
-				"tag_project":        "packer-test-ptfev4-aws-playgroud",
+				"tag_owner":          "packer-test-tfev4-aws-install",
+				"tag_project":        "packer-test-tfev4-aws-install",
 			},
 			// Configure retries for intermittent errors
 			RetryableErrors:    DefaultRetryablePackerErrors,
@@ -141,7 +141,7 @@ func TestPackerAmi(t *testing.T) {
 	// Test if needed files are in place
 	files := []string{
 		"/opt/tfe-installer/terraform-enterprise.airgap",
-		"/opt/tfe-installer/ptfev4.rli",
+		"/opt/tfe-installer/tfev4.rli",
 		"/opt/tfe-installer/cert.pem",
 		"/opt/tfe-installer/privkey.pem",
 		"/opt/tfe-installer/install.sh",

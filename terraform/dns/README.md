@@ -1,4 +1,4 @@
-# PTFEv4 DNS
+# TFEv4 DNS
 
 Basic Terraform module to create a CNAME DNS record.
 
