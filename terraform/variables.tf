@@ -1,12 +1,12 @@
 variable "common_tags" {
   type        = map(string)
-  description = "Common tags to assign to all resources"
+  description = "Common tags to assign to all resources."
   default     = {}
 }
 
 variable "name_prefix" {
   type        = string
-  description = "A string to be used as prefix for generating names of the created resources"
+  description = "A string to be used as prefix for generating names of the created resources."
   default     = "tfe-"
 }
 
