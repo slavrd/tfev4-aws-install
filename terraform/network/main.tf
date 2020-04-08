@@ -1,4 +1,4 @@
-module "ptfe-network" {
+module "tfe-network" {
 
   source = "github.com/slavrd/terraform-aws-basic-network?ref=0.3.0"
 
@@ -15,17 +15,17 @@ data "aws_vpc_endpoint_service" "s3" {
 }
 
 resource "aws_vpc_endpoint" "s3" {
-  vpc_id       = module.ptfe-network.vpc_id
+  vpc_id       = module.tfe-network.vpc_id
   service_name = data.aws_vpc_endpoint_service.s3.service_name
   tags         = var.common_tags
 }
 
 resource "aws_vpc_endpoint_route_table_association" "public_rt" {
-  route_table_id  = module.ptfe-network.public_route_table_id
+  route_table_id  = module.tfe-network.public_route_table_id
   vpc_endpoint_id = aws_vpc_endpoint.s3.id
 }
 
 resource "aws_vpc_endpoint_route_table_association" "main_rt" {
-  route_table_id  = module.ptfe-network.main_route_table_id
+  route_table_id  = module.tfe-network.main_route_table_id
   vpc_endpoint_id = aws_vpc_endpoint.s3.id
 }

@@ -1,20 +1,20 @@
 output "vpc_id" {
-  value       = module.ptfe-network.vpc_id
+  value       = module.tfe-network.vpc_id
   description = "Id of the created VPC."
 }
 
 output "public_subnets_ids" {
-  value       = module.ptfe-network.public_subnet_ids
+  value       = module.tfe-network.public_subnet_ids
   description = "List of the ids of the public subnets."
 }
 
 output "private_subnets_ids" {
-  value       = module.ptfe-network.private_subnet_ids
+  value       = module.tfe-network.private_subnet_ids
   description = "List of the ids of the public subnets."
 }
 
 output "lb_dns_name" {
-  value       = aws_lb.ptfe.dns_name
+  value       = aws_lb.tfe.dns_name
   description = "DNS name of the created load balancer."
 }
 

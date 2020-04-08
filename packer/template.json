@@ -1,73 +1,73 @@
 {
     "variables": {
-        "build_name": "ptfev4-aws",
-        "base_ami_id": "",
-        "ptfev4_version": "",
-        "ptfev4_url": null,
-        "replicated_version": "",
-        "docker_version_string": "5:18.09.2~3-0~ubuntu-bionic",
-        "tag_owner": "",
-        "tag_project": "",
-        "aws_region": "{{env `AWS_REGION`}}",
-        "aws_instance_type": "m5a.large",
-        "aws_instance_root_volume_size": "8"
+      "build_name": "tfe-aws",
+      "base_ami_id": "",
+      "tfe_version": "",
+      "tfe_url": null,
+      "replicated_version": "",
+      "docker_version_string": "5:18.09.2~3-0~ubuntu-bionic",
+      "ami_tag_owner": "",
+      "ami_tag_project": "",
+      "aws_region": "",
+      "aws_instance_type": "m5a.large",
+      "aws_instance_root_volume_size": "8"
     },
     "builders": [
-        {
-            "type": "amazon-ebs",
-            "ssh_username": "ubuntu",
-            "source_ami": "{{user `base_ami_id`}}",
-            "region": "{{user `aws_region`}}",
-            "instance_type": "{{user `aws_instance_type`}}",
-            "ami_name": "ptfev4-{{user `ptfev4_version`}}-{{isotime \"200601021504\"}}",
-            "tags": {
-                "owner": "{{user `tag_owner`}}",
-                "project": "{{user `tag_project`}}",
-                "base_ami": "{{ .SourceAMIName }}",
-                "PTFEv4_version": "{{user `ptfev4_version`}}",
-                "replicated_version": "{{user `replicated_version`}}"
-            },
-            "launch_block_device_mappings": [
-                {
-                    "device_name": "/dev/sda1",
-                    "volume_size": "{{user `aws_instance_root_volume_size`}}",
-                    "volume_type": "gp2",
-                    "delete_on_termination": true
-                }
-            ]
-        }
+      {
+        "type": "amazon-ebs",
+        "ssh_username": "ubuntu",
+        "source_ami": "{{user `base_ami_id`}}",
+        "region": "{{user `aws_region`}}",
+        "instance_type": "{{user `aws_instance_type`}}",
+        "ami_name": "tfe-{{user `tfe_version`}}-{{isotime \"200601021504\"}}",
+        "tags": {
+          "owner": "{{user `ami_tag_owner`}}",
+          "project": "{{user `ami_tag_project`}}",
+          "base_ami": "{{ .SourceAMIName }}",
+          "tfe_version": "{{user `tfe_version`}}",
+          "replicated_version": "{{user `replicated_version`}}"
+        },
+        "launch_block_device_mappings": [
+          {
+            "device_name": "/dev/sda1",
+            "volume_size": "{{user `aws_instance_root_volume_size`}}",
+            "volume_type": "gp2",
+            "delete_on_termination": true
+          }
+        ]
+      }
     ],
     "provisioners": [
-        {
-            "type": "file",
-            "source": "{{template_dir}}/assets/cert.pem",
-            "destination": "/tmp/cert.pem"
-        },
-        {
-            "type": "file",
-            "source": "{{template_dir}}/assets/privkey.pem",
-            "destination": "/tmp/privkey.pem"
-        },
-        {
-            "type": "file",
-            "source": "{{template_dir}}/assets/ptfev4.rli",
-            "destination": "/tmp/ptfev4.rli"
-        },
-        {
-            "execute_command": "{{.Vars}} sudo -E -S bash {{.Path}}",
-            "scripts": [
-                "{{template_dir}}/scripts/setup_download_replicated.sh",
-                "{{template_dir}}/scripts/setup_main.sh",
-                "{{template_dir}}/scripts/setup_files.sh",
-                "{{template_dir}}/scripts/setup_cleanup.sh"
-            ],
-            "environment_vars": [
-                "DEBIAN_FRONTEND=noninteractive",
-                "DOCKER_VERSION_STRING={{user `docker_version_string`}}",
-                "PTFE_AIRGAP_URL={{user `ptfev4_url`}}",
-                "REPLICATED_VER={{user `replicated_version`}}"
-            ],
-            "type": "shell"
-        }
+      {
+        "type": "file",
+        "source": "{{template_dir}}/assets/cert.pem",
+        "destination": "/tmp/cert.pem"
+      },
+      {
+        "type": "file",
+        "source": "{{template_dir}}/assets/privkey.pem",
+        "destination": "/tmp/privkey.pem"
+      },
+      {
+        "type": "file",
+        "source": "{{template_dir}}/assets/tfe.rli",
+        "destination": "/tmp/tfe.rli"
+      },
+      {
+        "execute_command": "{{.Vars}} sudo -E -S bash {{.Path}}",
+        "scripts": [
+          "{{template_dir}}/scripts/setup_download_replicated.sh",
+          "{{template_dir}}/scripts/setup_main.sh",
+          "{{template_dir}}/scripts/setup_files.sh",
+          "{{template_dir}}/scripts/setup_cleanup.sh"
+        ],
+        "environment_vars": [
+          "DEBIAN_FRONTEND=noninteractive",
+          "DOCKER_VERSION_STRING={{user `docker_version_string`}}",
+          "TFE_AIRGAP_URL={{user `tfe_url`}}",
+          "REPLICATED_VER={{user `replicated_version`}}"
+        ],
+        "type": "shell"
+      }
     ]
-}
+  }

@@ -1,17 +1,20 @@
-resource "aws_instance" "ptfe-test" {
+resource "aws_instance" "tfe-test" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
   subnet_id                   = var.subnet_id
-  vpc_security_group_ids      = [aws_security_group.ptfe_instance.id]
-  key_name                    = aws_key_pair.test-ptfe.key_name
+  vpc_security_group_ids      = [aws_security_group.tfe_instance.id]
+  key_name                    = aws_key_pair.test-tfe.key_name
   associate_public_ip_address = true
   volume_tags                 = var.common_tags
-  tags                        = merge({ Name = "packer-test-ptfe-instance-${formatdate("YYMMDD-HHmm", timestamp())}" }, var.common_tags)
+  tags                        = merge(
+    { Name = "packer-test-tfe-instance-${formatdate("YYMMDD-HHmm", timestamp())}" }, 
+    var.common_tags
+    )
 }
 
-resource "aws_security_group" "ptfe_instance" {
-  name        = "packer-ptfe-test-${formatdate("YYMMDD-HHmm", timestamp())}"
-  description = "Allow needed needed traffic for PTFE."
+resource "aws_security_group" "tfe_instance" {
+  name        = "packer-tfe-test-${formatdate("YYMMDD-HHmm", timestamp())}"
+  description = "Allow needed needed traffic for tfe."
   vpc_id      = var.vpc_id
   tags        = var.common_tags
 }
@@ -23,7 +26,7 @@ resource "aws_security_group_rule" "ssh" {
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }
 
 resource "aws_security_group_rule" "allow_all_outbound" {
@@ -33,16 +36,16 @@ resource "aws_security_group_rule" "allow_all_outbound" {
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
   ipv6_cidr_blocks  = ["::/0"]
-  security_group_id = aws_security_group.ptfe_instance.id
+  security_group_id = aws_security_group.tfe_instance.id
 }
 
-resource "tls_private_key" "test-ptfe" {
+resource "tls_private_key" "test-tfe" {
   algorithm = "RSA"
 }
 
-resource "aws_key_pair" "test-ptfe" {
-  key_name_prefix = "test-ptfe-"
-  public_key      = tls_private_key.test-ptfe.public_key_openssh
+resource "aws_key_pair" "test-tfe" {
+  key_name_prefix = "test-tfe-"
+  public_key      = tls_private_key.test-tfe.public_key_openssh
   tags            = var.common_tags
 }
 
@@ -59,17 +62,17 @@ provider "aws" {
 }
 
 output "public_ip" {
-  value = aws_instance.ptfe-test.public_ip
+  value = aws_instance.tfe-test.public_ip
 }
 
 output "public_dns" {
-  value = aws_instance.ptfe-test.public_dns
+  value = aws_instance.tfe-test.public_dns
 }
 
 output "private_key" {
-  value = tls_private_key.test-ptfe.private_key_pem
+  value = tls_private_key.test-tfe.private_key_pem
 }
 
 output "public_key" {
-  value = tls_private_key.test-ptfe.public_key_pem
+  value = tls_private_key.test-tfe.public_key_pem
 }

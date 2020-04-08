@@ -1,7 +1,7 @@
 variable "pg_identifier_prefix" {
   type        = string
   description = "Prefix to use for the PostgreSQL instance identifier."
-  default     = "ptfe-pg-instance-"
+  default     = "tfe-pg-instance-"
 }
 
 variable "pg_subnet_ids" {
@@ -65,7 +65,7 @@ variable "pg_backup_retention_period" {
 variable "pg_db_name" {
   type        = string
   description = "The name of the database to create when the PostgreSQL instance is created."
-  default     = "ptfe"
+  default     = "tfe"
 }
 
 variable "pg_username" {

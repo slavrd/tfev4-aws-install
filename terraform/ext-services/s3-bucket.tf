@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "ptfe_s3_bucket" {
+resource "aws_s3_bucket" "tfe_s3_bucket" {
   bucket        = var.s3_bucket_name
   region        = var.s3_bucket_region
   acl           = "private"
@@ -7,8 +7,8 @@ resource "aws_s3_bucket" "ptfe_s3_bucket" {
   tags = var.common_tags
 }
 
-resource "aws_s3_bucket_public_access_block" "ptfe_s3_bucket" {
-  bucket = aws_s3_bucket.ptfe_s3_bucket.id
+resource "aws_s3_bucket_public_access_block" "tfe_s3_bucket" {
+  bucket = aws_s3_bucket.tfe_s3_bucket.id
 
   block_public_acls       = true
   block_public_policy     = true

@@ -1,11 +1,11 @@
 variable "vpc_id" {
   type        = string
-  description = "Id of the VPC in which to deploy the PTFE instance."
+  description = "Id of the VPC in which to deploy the tfe instance."
 }
 
 variable "subnet_id" {
   type        = string
-  description = "Subnet in which to create PTFE instance."
+  description = "Subnet in which to create tfe instance."
 }
 
 variable "ami_id" {
@@ -15,7 +15,7 @@ variable "ami_id" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the AWS key pair to use for the PTFE instance."
+  description = "Name of the AWS key pair to use for the tfe instance."
 }
 
 variable "common_tags" {

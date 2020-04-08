@@ -5,7 +5,7 @@ variable "ami_id" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the AWS key pair to use for the PTFE instance."
+  description = "Name of the AWS key pair to use for the tfe instance."
 }
 
 variable "key_pair_create" {
@@ -35,21 +35,19 @@ variable "root_block_device_size" {
 variable "replicated_password" {
   type        = string
   description = "Password to set for the replaicate console."
-  default     = "Password123#"
 }
 
-variable "ptfe_hostname" {
+variable "tfe_hostname" {
   type        = string
-  description = "Hostname which will be used to access the PTFE instance."
+  description = "Hostname which will be used to access the tfe instance."
 }
 
-variable "ptfe_enc_password" {
+variable "tfe_enc_password" {
   type        = string
-  description = "Encryption password to be used by PTFE."
-  default     = "Password123#"
+  description = "Encryption password to be used by tfe."
 }
 
-variable "ptfe_associate_public_ip_address" {
+variable "tfe_associate_public_ip_address" {
   type        = bool
   description = "Wether to associate public ip address with the isntance. Shold be false except if bringin a standalone instance for testing."
   default     = false
