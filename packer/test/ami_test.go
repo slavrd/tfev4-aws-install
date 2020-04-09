@@ -52,8 +52,9 @@ func TestPackerAmi(t *testing.T) {
 	if awsRegion == "" {
 		t.Fatalf("AWS_REGION is not set.")
 	}
-
+	var isBuildAmi = false
 	if amiID == "" {
+		isBuildAmi = true
 		// BUILD the AMI with PACKER
 
 		// Occasionally, a Packer build may fail due to intermittent issues (e.g., brief network outage or EC2 issue). We try
@@ -76,8 +77,8 @@ func TestPackerAmi(t *testing.T) {
 				"tfev4_url":          tfeURL,
 				"replicated_version": rVer,
 				"aws_region":         awsRegion,
-				"tag_owner":          "packer-test-tfev4-aws-install",
-				"tag_project":        "packer-test-tfev4-aws-install",
+				"ami_tag_owner":      "packer-test-tfev4-aws-install",
+				"ami_tag_project":    "packer-test-tfev4-aws-install",
 			},
 			// Configure retries for intermittent errors
 			RetryableErrors:    DefaultRetryablePackerErrors,
@@ -196,6 +197,36 @@ func TestPackerAmi(t *testing.T) {
 		t.Errorf("periodic apt updates are not disabled, want:'APT::Periodic::Enable \"0\";', got: %q", out)
 	} else {
 		t.Log("success. periodic apt updates are disabled.")
+	}
+
+	// Test AMI tags if image was built as part of the test
+	if isBuildAmi {
+
+		var wantTags = map[string]string{
+			"owner":              "packer-test-tfev4-aws-install",
+			"project":            "packer-test-tfev4-aws-install",
+			"replicated_version": rVer,
+			"tfe_version":        tfeVer,
+		}
+
+		var gotTags map[string]string
+		gotTags, err = terraform.OutputMapE(t, to, "ami_tags")
+
+		if err != nil {
+			t.Errorf("error getting terraform output 'ami_tags': %v", err)
+		} else {
+			for k, v := range wantTags {
+				gotV, ok := gotTags[k]
+				if !ok {
+					t.Errorf("tag %q not present in ami tags", k)
+					continue
+				}
+				if v != gotV {
+					t.Errorf("unexpected value for tag %q, got: %q, want: %q", k, gotV, v)
+				}
+			}
+		}
+
 	}
 
 }

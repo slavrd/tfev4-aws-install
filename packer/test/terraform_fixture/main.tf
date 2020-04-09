@@ -57,6 +57,14 @@ terraform {
   }
 }
 
+data "aws_ami" "tfe_ami" {
+  owners = ["self"]
+  filter {
+    name   = "image-id"
+    values = [var.ami_id]
+  }
+}
+
 provider "aws" {
   region = var.aws_region
 }
@@ -75,4 +83,8 @@ output "private_key" {
 
 output "public_key" {
   value = tls_private_key.test-tfe.public_key_pem
+}
+
+output "ami_tags" {
+  value = data.aws_ami.tfe_ami.tags
 }
