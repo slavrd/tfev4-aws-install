@@ -36,7 +36,6 @@ s3_bucket_region    = "eu-central-1"
 pg_password         = "Password123#"
 replicated_password = "Password123#"
 tfe_enc_password    = "Password123#"
-replicated_password     = "Password123#"
 
 common_tags = {
   owner   = "owner@domain.com"
