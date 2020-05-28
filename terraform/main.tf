@@ -69,3 +69,14 @@ module "tfe_dns" {
   cname_record     = element(local.tfe_hostname_split, 0)
   hosted_zone_name = join(".", slice(local.tfe_hostname_split, 1, length(local.tfe_hostname_split)))
 }
+
+module "ssh_hop" {
+  source              = "./ssh-hop"
+  enable              = var.create_ssh_hop
+  name_prefix         = var.name_prefix
+  subnet_id           = module.network.public_subnets_ids[0]
+  vpc_id              = module.network.vpc_id
+  allow_ingress_cirds = var.ssh_ingress_cidrs
+  key_name            = var.key_name
+  common_tags         = var.common_tags
+}
