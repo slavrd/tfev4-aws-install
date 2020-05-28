@@ -37,35 +37,37 @@ The file `example.tfvars` is an example of a minimum set of input variables need
 
 | Variable | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| common_tags | map(string) | {} | Common tags to assign to all resources. |
-| name_prefix | string | "tfe-" | A string to be used as prefix for generating names of the created resources. |
-| vpc_cidr_block | string | | CIDR for the VPC to create. |
-| public_subnets_cidrs | list(object({cidr=string, az_index=number})) | | List of objects representing the public subnets CIDRs and their availability zones. The az_index property is used as an index to retrieve a zone from the list of the availability zones for the current AWS region. Check example.tfvars for example values. |
-| private_subnets_cidrs | list(object({cidr=string, az_index=number})) | | List of objects representing the private subnets CIDRs and their availability zones. The az_index property is used as an index to retrieve a zone from the list of the availability zones for the current AWS region. Check example.tfvars for example values. |
-| lb_internal | bool | false | Whether to create internal load balancer. |
-| s3_bucket_name | string | | Name of the s3 bucket to create. |
-| s3_bucket_region | string | | The AWS region in which to create the s3 bucket. |
-| pg_instance_class | string | "db.m4.large" | The instance class of the PostgreSQL instance. |
-| pg_engine_version | string | "10.10" | The engine version of the PostgreSQL instance. |
-| pg_allocated_storage | number | 100 | Storage amount in GBs to allocate for the PostgreSQL instance. |
-| pg_storage_type | string | "gp2" | Storage type used by the PostgreSQL instance. |
-| pg_multi_az | bool | false | Specifies if the PostgreSQL instance is multi-AZ. |
-| pg_parameter_group_name | string | null | Name of the DB parameter group to associate. |
-| pg_deletion_protection | bool | false | If the PostgreSQL instance should have deletion protection enabled. |
-| pg_backup_retention_period | number | 0 | The days to retain backups for. Must be between 0 and 35. |
-| pg_db_name | string | "tfe" | The name of the database to create when the PostgreSQL instance is created. |
-| pg_username | string | "postgres" | Username for the master PostgreSQL instance user. |
-| pg_password | string | | Password for the master PostgreSQL instance user. |
-| ami_id | string | | The AMI Id to use for the tfe instance. Needs to have the TFE arigap package and Replicated installer. |
-| key_name | string | | Name of the AWS key pair to use for the tfe instance. |
-| key_pair_create | bool | false | Wether to create an AWS key pair at all. If false the `key_name` variable must be set to an existing aws ec2 key pair. |
-| public_key_path | string | "" | Public key to use for the AWS key pair creation. If not provided a new TLS public/private key pair will be generated. |
-| instance_type | string | "m5a.large" | The AWS instance type to use. |
-| root_block_device_size | number | 50 | The size of the root block device volume in gigabytes. |
-| replicated_password | string | | Password to set for the replaicated console. |
-| tfe_hostname | string | | Hostname which will be used to access the tfe instance. |
-| tfe_enc_password | string | | Encryption password to be used by tfe. |
-| tfe_associate_public_ip_address | bool | false | Wether to associate public ip address with the instance. Should be false except if bringing up standalone instance for testing. |
+| common_tags | `map(string)` | `{}` | Common tags to assign to all resources. |
+| name_prefix | `string` | `"tfe-"` | A string to be used as prefix for generating names of the created resources. |
+| vpc_cidr_block | `string` | | CIDR for the VPC to create. |
+| public_subnets_cidrs | `list(object({cidr=string, az_index=number}))` | | List of objects representing the public subnets CIDRs and their availability zones. The az_index property is used as an index to retrieve a zone from the list of the availability zones for the current AWS region. Check example.tfvars for example values. |
+| private_subnets_cidrs | `list(object({cidr=string, az_index=number}))` | | List of objects representing the private subnets CIDRs and their availability zones. The az_index property is used as an index to retrieve a zone from the list of the availability zones for the current AWS region. Check example.tfvars for example values. |
+| lb_internal | `bool` | `false` | Whether to create internal load balancer. |
+| s3_bucket_name | `string` | | Name of the s3 bucket to create. |
+| s3_bucket_region | `string` | | The AWS region in which to create the s3 bucket. |
+| pg_instance_class | `string` | `"db.m4.large"` | The instance class of the PostgreSQL instance. |
+| pg_engine_version | `string` | `"10.10"` | The engine version of the PostgreSQL instance. |
+| pg_allocated_storage | `number` | `100` | Storage amount in GBs to allocate for the PostgreSQL instance. |
+| pg_storage_type | `string` | `"gp2"` | Storage type used by the PostgreSQL instance. |
+| pg_multi_az | `bool` | `false` | Specifies if the PostgreSQL instance is multi-AZ. |
+| pg_parameter_group_name | `string` | `null` | Name of the DB parameter group to associate. |
+| pg_deletion_protection | `bool` | `false` | If the PostgreSQL instance should have deletion protection enabled. |
+| pg_backup_retention_period | `number` | `0` | The days to retain backups for. Must be between 0 and 35. |
+| pg_db_name | `string` | `"tfe"` | The name of the database to create when the PostgreSQL instance is created. |
+| pg_username | `string` | `"postgres"` | Username for the master PostgreSQL instance user. |
+| pg_password | `string` | | Password for the master PostgreSQL instance user. |
+| ami_id | `string` | | The AMI Id to use for the tfe instance. Needs to have the TFE arigap package and Replicated installer. |
+| key_name | `string` | | Name of the AWS key pair to use for the tfe instance. |
+| key_pair_create | `bool` | `false` | Wether to create an AWS key pair at all. If false the `key_name` variable must be set to an existing aws ec2 key pair. |
+| public_key_path | `string` | `""` | Public key to use for the AWS key pair creation. If not provided a new TLS public/private key pair will be generated. |
+| instance_type | `string` | `"m5a.large"` | The AWS instance type to use. |
+| root_block_device_size | `number` | `50` | The size of the root block device volume in gigabytes. |
+| replicated_password | `string` | | Password to set for the replaicated console. |
+| tfe_hostname | `string` | | Hostname which will be used to access the tfe instance. |
+| tfe_enc_password | `string` | | Encryption password to be used by tfe. |
+| tfe_associate_public_ip_address | `bool` | `false` | Wether to associate public ip address with the instance. Should be false except if bringing up standalone instance for testing. |
+| create_ssh_hop | `bool` | `false` | Whether to create an EC2 insntance and related resources to be used as a SSH hop. |
+| ssh_ingress_cidrs | `list(string)` | `[]` | List of CIDRs from which incoming traffic SSH connections are allowed. If the list is empty 0.0.0.0/0 will be used. Considered only if `create_ssh_hop` is set to `true`. |
 
 ### Provisioning with Terraform
 

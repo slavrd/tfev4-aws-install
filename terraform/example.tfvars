@@ -29,7 +29,7 @@ name_prefix = "my-tfe-"
 ami_id          = "my.tfe.install.ami.id"
 key_name        = "my-key-pair"
 key_pair_create = true
-tfe_hostname   = "tfe.domain.com"
+tfe_hostname    = "tfe.domain.com"
 
 s3_bucket_name      = "my-tfe"
 s3_bucket_region    = "eu-central-1"
