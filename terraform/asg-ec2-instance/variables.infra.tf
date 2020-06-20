@@ -55,3 +55,9 @@ variable "target_groups_arns" {
   type        = list(string)
   description = "List of target group arns in which to register the auto scaling group instances."
 }
+
+variable "health_check_type" {
+  type        = string
+  description = "Sets the healthcheck type for the auto scaling group. Accepted values ELB, EC2."
+  default     = "ELB"
+}

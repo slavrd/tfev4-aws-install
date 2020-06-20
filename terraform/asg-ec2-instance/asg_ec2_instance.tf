@@ -16,7 +16,7 @@ resource "aws_launch_configuration" "tfe" {
   }
   user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
     replicated_conf_b64content = base64encode(templatefile("${path.module}/templates/replicated.conf.tmpl", {
-      tfe_hostname       = var.tfe_hostname
+      tfe_hostname        = var.tfe_hostname
       replicated_password = var.replicated_password
     }))
     tfe_settings_b64content = base64encode(templatefile("${path.module}/templates/settings.json.tmpl", {
@@ -44,7 +44,7 @@ resource "aws_autoscaling_group" "tfe" {
   max_size                  = 1
   min_size                  = 1
   health_check_grace_period = 300
-  health_check_type         = "ELB"
+  health_check_type         = var.health_check_type
   launch_configuration      = aws_launch_configuration.tfe.name
   vpc_zone_identifier       = var.subnets_ids
   target_group_arns         = var.target_groups_arns

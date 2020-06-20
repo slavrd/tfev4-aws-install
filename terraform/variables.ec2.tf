@@ -32,6 +32,12 @@ variable "root_block_device_size" {
   default     = 50
 }
 
+variable "health_check_type" {
+  type        = string
+  description = "Sets the healthcheck type for the auto scaling group. Accepted values ELB, EC2."
+  default     = "ELB"
+}
+
 variable "replicated_password" {
   type        = string
   description = "Password to set for the replaicated console."

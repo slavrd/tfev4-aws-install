@@ -43,8 +43,8 @@ data "aws_iam_policy_document" "tfe_instance" {
 }
 
 resource "aws_iam_role_policy" "tfe_instance" {
-  name = "${var.name_prefix}tfe-policy"
-  role = aws_iam_role.tfe_instance.id
+  name   = "${var.name_prefix}tfe-policy"
+  role   = aws_iam_role.tfe_instance.id
   policy = data.aws_iam_policy_document.tfe_instance.json
 }
 
