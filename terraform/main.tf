@@ -47,6 +47,7 @@ module "tfe_instance" {
   target_groups_arns          = [module.network.lb_tg_80_arn, module.network.lb_tg_443_arn, module.network.lb_tg_8800_arn]
   associate_public_ip_address = var.tfe_associate_public_ip_address
   root_block_device_size      = var.root_block_device_size
+  health_check_type           = var.health_check_type
   replicated_password         = var.replicated_password
   tfe_hostname                = var.tfe_hostname
   tfe_enc_password            = var.tfe_enc_password
