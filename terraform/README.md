@@ -62,11 +62,12 @@ The file `example.tfvars` is an example of a minimum set of input variables need
 | public_key_path | `string` | `""` | Public key to use for the AWS key pair creation. If not provided a new TLS public/private key pair will be generated. |
 | instance_type | `string` | `"m5a.large"` | The AWS instance type to use. |
 | root_block_device_size | `number` | `50` | The size of the root block device volume in gigabytes. |
-| replicated_password | `string` | | Password to set for the replaicated console. |
+| health_check_type | `string` | `ELB` | Sets the health-check type for the auto scaling group. Accepted values ELB, EC2. |
+| replicated_password | `string` | | Password to set for the replicated console. |
 | tfe_hostname | `string` | | Hostname which will be used to access the tfe instance. |
 | tfe_enc_password | `string` | | Encryption password to be used by tfe. |
 | tfe_associate_public_ip_address | `bool` | `false` | Wether to associate public ip address with the instance. Should be false except if bringing up standalone instance for testing. |
-| create_ssh_hop | `bool` | `false` | Whether to create an EC2 insntance and related resources to be used as a SSH hop. |
+| create_ssh_hop | `bool` | `false` | Whether to create an EC2 instance and related resources to be used as a SSH hop. |
 | ssh_ingress_cidrs | `list(string)` | `[]` | List of CIDRs from which incoming traffic SSH connections are allowed. If the list is empty 0.0.0.0/0 will be used. Considered only if `create_ssh_hop` is set to `true`. |
 
 ### Provisioning with Terraform
