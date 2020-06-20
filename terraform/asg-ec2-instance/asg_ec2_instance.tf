@@ -16,7 +16,7 @@ resource "aws_launch_configuration" "tfe" {
   }
   user_data_base64 = base64encode(templatefile("${path.module}/templates/cloud-init.tmpl", {
     replicated_conf_b64content = base64encode(templatefile("${path.module}/templates/replicated.conf.tmpl", {
-      tfe_hostname       = var.tfe_hostname
+      tfe_hostname        = var.tfe_hostname
       replicated_password = var.replicated_password
     }))
     tfe_settings_b64content = base64encode(templatefile("${path.module}/templates/settings.json.tmpl", {
