@@ -39,7 +39,7 @@ export AWS_TIMEOUT_SECONDS=3600
   - `tfev4_version` - a string used in the AMI name and for tagging.
   - `tfev4_url` - a URL from which to download the TFEv4 airgap package.
   - `replicated_version` - a version of the Replicated installer to download. Version can be checked [here](https://release-notes.replicated.com/). If not provided will use latest and will not set value for the `replicatad_version` ami tag.
-  - `ami_tag_owner` and `ami_tag_project` - the AMI wil be tagged with `owner` and `project` tags using the corresponding values from the variables.
+  - `ami_tag_owner`, `ami_tag_project` and `ami_tag_ssl_cert_expiry` - the AMI wil be tagged with `owner`, `project` and `ssl_cert_expiry` tags using the corresponding values from the variables.
 
 - use the `packer build` command to build the AMI. For example if using the `eu-central-1` AWS region:
 

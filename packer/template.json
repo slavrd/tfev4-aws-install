@@ -8,6 +8,7 @@
       "docker_version_string": "5:19.03.8~3-0~ubuntu-bionic",
       "ami_tag_owner": "",
       "ami_tag_project": "",
+      "ami_tag_ssl_cert_expiry": "",
       "aws_region": "",
       "aws_instance_type": "m5a.large",
       "aws_instance_root_volume_size": "8"
@@ -25,7 +26,8 @@
           "project": "{{user `ami_tag_project`}}",
           "base_ami": "{{ .SourceAMIName }}",
           "tfe_version": "{{user `tfev4_version`}}",
-          "replicated_version": "{{user `replicated_version`}}"
+          "replicated_version": "{{user `replicated_version`}}",
+          "ssl_cert_expiry": "{{user `ami_tag_ssl_cert_expiry`}}"
         },
         "launch_block_device_mappings": [
           {
