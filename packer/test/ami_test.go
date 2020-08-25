@@ -172,7 +172,7 @@ func TestPackerAmi(t *testing.T) {
 
 	var minVer, maxVer *mmsemver.Constraints
 	minVer, _ = mmsemver.NewConstraint(">= 17.06.2") // ignoring error as constraint is hardcoded
-	maxVer, _ = mmsemver.NewConstraint("<= 18.09.2") // ignoring error as constraint is hardcoded
+	maxVer, _ = mmsemver.NewConstraint("<= 19.03.8") // ignoring error as constraint is hardcoded
 
 	if !(minVer.Check(dockerVer) && maxVer.Check(dockerVer)) {
 		t.Errorf("filed docker version check version %q is not between %q and %q",

@@ -37,21 +37,37 @@ export AWS_TIMEOUT_SECONDS=3600
 - set the packer variables defined in `template.json`. Help on setting packer template variables can be found [here](https://packer.io/docs/templates/user-variables.html).
   - `base_ami_id` - must be an ubuntu image.
   - `tfev4_version` - a string used in the AMI name and for tagging.
-  - `tfev4_url` - a URL from which to download the TFEv4 airgap package.
-  - `replicated_version` - a version of the Replicated installer to download. Version can be checked [here](https://release-notes.replicated.com/). If not provided will use latest and will not set value for the `replicatad_version` ami tag.
+  - `tfev4_url` - a URL from which to download the TFEv4 airgap package. Will be used only if no value is provided for one or more of the `tfev4_license_id`, `tfev4_release_sequence`, `tfe_download_password` variables.
+  - `tfev4_license_id` - the TFE license id. Used to get the airgap package download url.
+  - `tfe_download_password` - the password for the replicated portal from which to get the TFE airgap package download url.
+  - `tfev4_release_sequence` - the TFE version release sequence. Used to get the airgap package download url and also to tag the ami.
+  - `replicated_version` - a version of the Replicated installer to download. Version can be checked [here](https://release-notes.replicated.com/). If not provided will use latest and will not set value for the `replicatad_version` ami tag. 
   - `ami_tag_owner`, `ami_tag_project` and `ami_tag_ssl_cert_expiry` - the AMI wil be tagged with `owner`, `project` and `ssl_cert_expiry` tags using the corresponding values from the variables.
 
-- use the `packer build` command to build the AMI. For example if using the `eu-central-1` AWS region:
+- use the `packer build` command to build the AMI. For example:
+  
+  - Prepare a file `variables.json` with the input variables values like
 
-```bash
-packer build \
-  -var 'base_ami_id=ami-0718a1ae90971ce4d' \
-  -var 'tfev4_version=v201912-4' \
-  -var 'tfev4_url=https://VALID_TFE_DOWNLOAD_URL'
-  -var 'replicated_version=2.42.5' \
-  -var 'ami_tag_owner=you@your.org' -var 'ami_tag_project=tfev4' \
-  template.json
-```
+    ```json
+    {
+      "aws_region": "eu-central-1",
+      "docker_version_string": "5:19.03.8~3-0~ubuntu-bionic",
+      "base_ami_id": "ami-04932daa2567651e7",
+      "replicated_version": "2.47.0",
+      "tfev4_license_id": "4ab5xxxxxxxxxxxxxxxxxxxxxx583ecd",
+      "tfev4_release_sequence": "445",
+      "tfe_download_password": "PA$$W0RD",
+      "tfev4_version": "v202007-2",
+      "ami_tag_owner": "slav@hashicorp.com",
+      "ami_tag_project": "tfev4",
+      "ami_tag_ssl_cert_expiry": "16.11.2020"
+    }
+    ```
+  - Build the image with packer. For example
+
+    ```bash
+    packer build -var-file=variables.json template.json
+    ```
 
 ## Using the AMI
 
@@ -87,7 +103,7 @@ The project contains a [terratest](https://github.com/gruntwork-io/terratest) te
 
 - Have [Golang](https://golang.org/dl/) installed.
 - Have [Packer](https://packer.io/downloads.html) installed.
-- Have [Terraform](https://www.terraform.io/downloads.html) version `>= 0.12.20` installed.
+- Have [Terraform](https://www.terraform.io/downloads.html) version `~> 0.12.20` installed.
 - Have the go dependency packages installed. To do that run 
 
 ```

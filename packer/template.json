@@ -3,7 +3,10 @@
       "build_name": "tfe-aws",
       "base_ami_id": "",
       "tfev4_version": "",
-      "tfev4_url": null,
+      "tfev4_url": "",
+      "tfev4_license_id": "",
+      "tfev4_release_sequence": "",
+      "tfe_download_password": "",
       "replicated_version": "",
       "docker_version_string": "5:19.03.8~3-0~ubuntu-bionic",
       "ami_tag_owner": "",
@@ -26,6 +29,7 @@
           "project": "{{user `ami_tag_project`}}",
           "base_ami": "{{ .SourceAMIName }}",
           "tfe_version": "{{user `tfev4_version`}}",
+          "tfe_release_sequence": "{{user `tfev4_release_sequence`}}",
           "replicated_version": "{{user `replicated_version`}}",
           "ssl_cert_expiry": "{{user `ami_tag_ssl_cert_expiry`}}"
         },
@@ -58,8 +62,8 @@
       {
         "execute_command": "{{.Vars}} sudo -E -S bash {{.Path}}",
         "scripts": [
-          "{{template_dir}}/scripts/setup_download_replicated.sh",
           "{{template_dir}}/scripts/setup_main.sh",
+          "{{template_dir}}/scripts/setup_download_replicated.sh",
           "{{template_dir}}/scripts/setup_files.sh",
           "{{template_dir}}/scripts/setup_cleanup.sh"
         ],
@@ -67,7 +71,10 @@
           "DEBIAN_FRONTEND=noninteractive",
           "DOCKER_VERSION_STRING={{user `docker_version_string`}}",
           "TFE_AIRGAP_URL={{user `tfev4_url`}}",
-          "REPLICATED_VER={{user `replicated_version`}}"
+          "REPLICATED_VER={{user `replicated_version`}}",
+          "TFE_AIRGAP_DOWNLOAD_PASSWORD={{user `tfe_download_password`}}",
+          "TFE_LICENSE_ID={{user `tfev4_license_id`}}",
+          "TFE_RELEASE_SEQUENCE={{user `tfev4_release_sequence`}}"
         ],
         "type": "shell"
       }
