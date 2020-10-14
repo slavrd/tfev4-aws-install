@@ -14,7 +14,7 @@
       "ami_tag_ssl_cert_expiry": "",
       "aws_region": "",
       "aws_instance_type": "m5a.large",
-      "aws_instance_root_volume_size": "8"
+      "aws_instance_root_volume_size": "12"
     },
     "builders": [
       {
@@ -54,10 +54,17 @@
         "source": "{{template_dir}}/assets/privkey.pem",
         "destination": "/tmp/privkey.pem"
       },
+
       {
         "type": "file",
         "source": "{{template_dir}}/assets/tfev4.rli",
         "destination": "/tmp/tfev4.rli"
+      },
+      {
+        "type": "shell",
+        "inline": [
+          "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done"
+        ]
       },
       {
         "execute_command": "{{.Vars}} sudo -E -S bash {{.Path}}",
